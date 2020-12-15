@@ -11,7 +11,7 @@ It allow users to easily interact with each other.
 - Web Sockets and Socket.io
 - HTML
 - Javascript 
-- Material CSS
+- Materialize CSS
 
 ### Installation and Setup -
 
