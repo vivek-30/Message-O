@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 var users = {};
+var totalUsers = 0;
 
 app.use('/',express.static('public'));
 
@@ -15,6 +16,14 @@ const io = socket(server);
 
 io.on('connection',function(socket){
     // console.log('connected with websocket with id ',socket.id);
+    
+    //increment totalUsers count when a new user joins
+    totalUsers++;
+
+    io.emit('total-users',totalUsers);
+    socket.on('update-users',totalUsers=>{
+        io.sockets.emit('total-users',totalUsers);
+    });
 
     socket.on('chat',data=>{
         users[socket.id] = data.user;
@@ -26,7 +35,11 @@ io.on('connection',function(socket){
     });
 
     socket.on('disconnect',()=>{
-        socket.broadcast.emit('left',users[socket.id]);
+        //decrement totalUsers count when a user leaves the chat
+        totalUsers--;
+        socket.broadcast.emit('left',{
+            user:users[socket.id],totalUsers:totalUsers
+        });
         delete users[socket.id];
     });
 });

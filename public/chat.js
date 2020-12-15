@@ -5,6 +5,7 @@ var user = document.getElementById('user');
 var message = document.getElementById('message');
 var form = document.getElementById('chat-box');
 var statusBar = document.getElementById('status-bar');
+var activeUsers = document.getElementById('active-users')
 
 var audio = new Audio('./chat_tone.mp3');
 
@@ -27,6 +28,10 @@ message.addEventListener('keypress',()=>{
     socket.emit('status',user.value);
 });
 
+socket.on('total-users',total => {
+    activeUsers.innerHTML = `${total} people active`;
+});
+
 socket.on('chat',data=>{
     audio.play();
     statusBar.innerHTML = "";
@@ -43,5 +48,7 @@ socket.on('status',user=>{
 
 socket.on('left',user=>{
     statusBar.innerHTML = "";
-    alert(`${user} left the chat`);
+    if(user.user)
+    alert(`${user.user} left the chat`);
+    socket.emit('update-users',user.totalUsers);
 });
