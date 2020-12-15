@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App | Websocket</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+    <div class="container" id="chat-app">
+        <div class="section center teal-text text-lighten-1">
+            <span class="flow-text" id="banner">Chat App</span>
+            <span id="logo"><i class="material-icons">forum</i></span>
+        </div>
+        <div id="chat-window">
+            <div id="display"></div>
+            <h5 id="status-bar"></h5>
+        </div>
+        <form class="center section" id="chat-box">
+            <div class="input-field">
+                <i class="material-icons prefix teal-text">person</i>
+                <input type="text" id="user">
+                <label for="user">Your Name</label>
+            </div>
+
+            <div class="input-field">
+                <i class="material-icons prefix teal-text">chat</i>
+                <input type="text" id="message" required>
+                <label for="message">Your Message</label>
+            </div>
+
+            <button type="submit" class="btn blue lighten-1 z-depth-2" id="send-btn">
+                <span>Send</span>
+                <i class="material-icons right">send</i>
+            </button>
+
+            <!-- <div class="input-field">
+                <button type="submit" class="btn-floating pulse blue lighten-1" id="send-btn">
+                    <i class="material-icons">send</i>
+                </button>
+            </div> -->
+        </form>
+    </div>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/chat.js"></script>
+</body>
+
+</html>
