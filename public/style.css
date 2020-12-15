@@ -1,0 +1,40 @@
+#chat-window{
+    min-height:60vh;
+    background:#f1f1f1;
+    border-radius:10px;
+}
+
+#chat-app .container{
+    margin:10px 0;
+}
+
+#display{
+    padding-top:4px;
+}
+
+#display div{
+    font-size:20px;
+    margin:5px 20px;
+}
+
+.chat-msg{
+    background-color:#ecf1f7;
+    padding:4px;
+    border-radius:5px
+}
+
+
+#status-bar em{
+    color:seagreen;
+    font-size:16px;
+    margin:0px 23px;
+}
+
+#logo{
+    margin:0px 7px;
+}
+
+#logo i{
+    position:relative;
+    top:8px;
+}
