@@ -38,7 +38,7 @@ message.addEventListener('keypress',() => {
 });
 
 socket.on('total-users',total => {
-    activeUsers.innerHTML = `${total} people active`;
+    activeUsers.innerText = `${total} Active`;
 });
 
 socket.on('chat',data => {
@@ -57,12 +57,13 @@ socket.on('status',user => {
 
 socket.on('left',user => {
     statusBar.innerHTML = "";
-    if(user.user)
-    M.toast({
-        html: `${user.user} left the chat`,
-        inDuration: 800,
-        outDuration: 800,
-        displayLength: 1500
-    })
+    if(user.user){
+        M.toast({
+            html: `${user.user} left the chat`,
+            inDuration: 800,
+            outDuration: 800,
+            displayLength: 1500
+        });
+    }
     socket.emit('update-users',user.totalUsers);
 });

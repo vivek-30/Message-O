@@ -39,7 +39,8 @@ io.on('connection',function(socket){
         //decrement totalUsers count when a user leaves the chat
         totalUsers--;
         socket.broadcast.emit('left',{
-            user:users[socket.id],totalUsers:totalUsers
+            user:users[socket.id],
+            totalUsers:totalUsers
         });
         delete users[socket.id];
     });

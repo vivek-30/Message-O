@@ -1,7 +1,8 @@
 #chat-window{
     min-height:60vh;
     background:#f1f1f1;
-    border-radius:10px;
+    border:1px solid rgb(211, 207, 207);
+    /* border-radius:3px; */
 }
 
 #chat-app .container{
@@ -14,6 +15,10 @@
     overflow:scroll;
 }
 
+#active-users{
+    margin-top:0.7rem;
+}
+
 #display div{
     font-size:20px;
     margin:8px 20px;
@@ -23,6 +28,21 @@
     border-radius:7px;
     padding:6px;
     background-color:#ecf1f7;
+}
+
+#features{
+    display:flex;
+    justify-content:space-evenly;
+    /* border-radius:3px; */
+}
+
+#features span{
+    padding:10px 3px;
+    cursor:pointer;
+}
+
+#features span:hover{
+    background-color:#424242;
 }
 
 .myright{
