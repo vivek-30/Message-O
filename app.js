@@ -21,20 +21,21 @@ io.on('connection',function(socket){
     totalUsers++;
 
     io.emit('total-users',totalUsers);
-    socket.on('update-users',totalUsers=>{
+    socket.on('update-users',totalUsers => {
         io.sockets.emit('total-users',totalUsers);
     });
 
-    socket.on('chat',data=>{
+    socket.on('chat',data => {
         users[socket.id] = data.user;
-        io.sockets.emit('chat',data);
+        // io.sockets.emit('chat',data);
+        socket.broadcast.emit('chat',data);
     });
 
-    socket.on('status',(data)=>{
+    socket.on('status',data => {
         socket.broadcast.emit('status',data);
     });
 
-    socket.on('disconnect',()=>{
+    socket.on('disconnect',() => {
         //decrement totalUsers count when a user leaves the chat
         totalUsers--;
         socket.broadcast.emit('left',{

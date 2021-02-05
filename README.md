@@ -21,3 +21,10 @@ npm start
 ```
 
 `port - 3000`
+
+### Features -
+
+- notify others whenever a user types a message
+- notify others when a user leaves the chat
+- feature that shows how many active user are there in the chat
+- every message also have a chat sound that also enhance users experience

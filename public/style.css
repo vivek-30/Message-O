@@ -9,25 +9,34 @@
 }
 
 #display{
-    padding-top:4px;
+    padding-top:6px;
+    height:55vh;
+    overflow:scroll;
 }
 
 #display div{
     font-size:20px;
-    margin:5px 20px;
+    margin:8px 20px;
 }
 
-.chat-msg{
+.chat-msg span{
+    border-radius:7px;
+    padding:6px;
     background-color:#ecf1f7;
-    padding:4px;
-    border-radius:5px
 }
 
+.myright{
+    text-align:right;
+}
+
+.myleft{
+    text-align:left;
+}
 
 #status-bar em{
     color:seagreen;
     font-size:16px;
-    margin:0px 23px;
+    margin:3px 23px; /* 0px  23px before */
 }
 
 #logo{
@@ -38,3 +47,9 @@
     position:relative;
     top:8px;
 }
+
+/* @media(max-width:600px){
+    #active-users{
+        display:inherit;
+    }
+} */
