@@ -22,15 +22,19 @@
         </div>
         <div id="chat-window">
             <div id="display"></div>
-            <h5 id="status-bar"></h5>
+            <div id="status-bar" class="teal-text text-darken-2"></div>
         </div>
         <div class="grey darken-4" id="features">
-            <span><i class="material-icons small blue-text text-darken-2">home</i></span>
-            <span><i class="material-icons small blue-text text-darken-2">attach_file</i></span>
-            <span><i class="material-icons small blue-text text-darken-2">camera</i></span>
-            <span><i class="material-icons small blue-text text-darken-2">location_on</i></span>
-            <span><i class="material-icons small blue-text text-darken-2">mic</i></span>
-            <span><i class="material-icons small blue-text text-darken-2">video_call</i></span>
+            <span id="home"><a href="/"><i class="material-icons small blue-text text-darken-2">home</i></a></span>
+            <span id="file-input-icon">
+                <input type="file" id="file-input" accept="video/*,audio/*,image/*,.doc,.png,.jpeg,jpg,.pdf,.gif" multiple>
+                <i class="material-icons small blue-text text-darken-2">attach_file</i>
+            </span>
+            <span id="camera"><i class="material-icons small blue-text text-darken-2">camera</i></span>
+            <span id="location"><i class="material-icons small blue-text text-darken-2">location_on</i></span>
+            <span id="microphone"><i class="material-icons small blue-text text-darken-2">mic</i></span>
+            <span id="webcam"><i class="material-icons small blue-text text-darken-2">video_call</i></span>
+            <span id="play-pause"><i class="material-icons small blue-text text-darken-2">play_arrow</i></span>
             <!-- <div><i class="material-icons">code</i></div> -->
         </div>
         <form class="center section" id="chat-box">
@@ -57,6 +61,11 @@
                 </button>
             </div> -->
         </form>
+    </div>
+    <div id="media-box">
+        <video src="" id="video"></video>
+        <audio src="" id="audio"></audio>
+        <canvas id="canvas"></canvas>
     </div>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

@@ -4,7 +4,7 @@
   "description": "A chat app using websocket",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon app",
     "start": "node app.js"
   },
   "keywords": [

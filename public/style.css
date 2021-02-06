@@ -53,10 +53,24 @@
     text-align:left;
 }
 
+.file-container,.file-bottom-section{
+    margin:10px;
+    width:33vw;
+    height:33vh
+}
+
+.selected-file{
+    width:20vw;
+    height:20vh;
+}
+
+#status-bar{
+    display:none;
+}
+
 #status-bar em{
-    color:seagreen;
     font-size:16px;
-    margin:3px 23px; /* 0px  23px before */
+    margin:3px 23px;
 }
 
 #logo{
@@ -66,6 +80,14 @@
 #logo i{
     position:relative;
     top:8px;
+}
+
+#file-input{
+    display:none;
+}
+
+#media-box{
+    display:none;
 }
 
 /* @media(max-width:600px){
