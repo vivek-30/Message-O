@@ -35,7 +35,6 @@
             <span id="microphone"><i class="material-icons small blue-text text-darken-2">mic</i></span>
             <span id="webcam"><i class="material-icons small blue-text text-darken-2">video_call</i></span>
             <span id="play-pause"><i class="material-icons small blue-text text-darken-2">play_arrow</i></span>
-            <!-- <div><i class="material-icons">code</i></div> -->
         </div>
         <form class="center section" id="chat-box">
             <div class="input-field">
@@ -63,15 +62,16 @@
         </form>
     </div>
     <div id="media-box">
-        <video src="" id="video"></video>
-        <audio src="" id="audio"></audio>
+        <video id="video"></video>
+        <audio id="audio"></audio>
         <canvas id="canvas"></canvas>
+        <button id="stop">stop stream</button>
     </div>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/chat.js"></script>
+    <script src="/js/chat.js"></script>
 </body>
 
 </html>

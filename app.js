@@ -31,6 +31,10 @@ io.on('connection',function(socket){
         socket.broadcast.emit('chat',data);
     });
 
+    socket.on('send-media',data => {
+        socket.broadcast.emit('recieve-media',data);
+    })
+
     socket.on('status',data => {
         socket.broadcast.emit('status',data);
     });

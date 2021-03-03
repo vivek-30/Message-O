@@ -53,15 +53,25 @@
     text-align:left;
 }
 
-.file-container,.file-bottom-section{
+.file-container{
+    border-radius:10px;
     margin:10px;
     width:33vw;
     height:33vh
 }
 
+#upload{
+    cursor:pointer;
+}
+
+#download{
+    cursor:pointer;
+}
+
 .selected-file{
-    width:20vw;
-    height:20vh;
+    width:13rem;
+    height:13rem;
+    border-radius:8px;
 }
 
 #status-bar{
