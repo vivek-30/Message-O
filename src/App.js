@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react'
+import Banner from './components/Banner'
+import Form from './components/Form'
+import Toolbar from './components/Toolbar'
+import ChatWindow from './components/majorComponents/ChatWindow'
 
-function App() {
-  return (
-    <div className="App">
-      <h1>!!!!!React!!!!!</h1>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="container" id="chat-app">
+        <Banner />
+        <ChatWindow />
+        <Toolbar />
+        <Form />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
