@@ -1,19 +1,39 @@
 {
-  "name": "websocket",
+  "name": "chat-app",
   "version": "1.0.0",
   "description": "A chat app using websocket",
   "main": "app.js",
   "scripts": {
-    "devStart": "nodemon app",
-    "start": "node app.js"
+    "start": "webpack serve",
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [
-    "Chat APP"
+    "Chat APP",
+    "websockets"
   ],
   "author": "Vivek singh",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^3.0.4"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "socket.io": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.1",
+    "eslint": "^7.21.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-react": "^7.22.0",
+    "html-loader": "^2.1.1",
+    "html-webpack-plugin": "^5.2.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
