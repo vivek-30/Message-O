@@ -8,6 +8,9 @@ module.exports = {
         "filename": "bundle.js"
     },
     "devtool": "source-map",
+    "devServer": {
+        port: 3000
+    },
     "module": {
         "rules": [
             {
@@ -47,7 +50,7 @@ module.exports = {
     },
     "plugins": [
         new HtmlWebPackPlugin({
-            template: "./src/index.html",
+            template: "./public/index.html",
             filename: "./index.html"
         })
     ]
