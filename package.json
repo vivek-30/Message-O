@@ -15,6 +15,7 @@
   "author": "Vivek singh",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "materialize-css": "^1.0.0-rc.2",
