@@ -1,18 +1,30 @@
-var notify_tone = new Audio('../../public/chat_tone.mp3');
+// var notify_tone = new Audio('../../public/chat_tone.mp3');
+import M from 'materialize-css'
 
-export function RespondToChat(data) {
-    notify_tone.play()
+// socket event funtions
+export const RespondToChat = (data) => {
+    // notify_tone.play()
     console.log('respondToChat', data)
 }
 
-export function RespondToStatus() {
+export const RespondToStatus = () => {
     console.log('respondToStatus')
 }
 
-export function RespondToLeave() {
+export const RespondToLeave = () => {
     console.log('respondToLeave')
 }
 
-export function ManageUsersCount(totalUsers) {
+export const ManageUsersCount = (totalUsers) => {
     console.log('ManageUsersCount',totalUsers)
+}
+
+// other helper functions
+export const customAlert = (message) => {
+    M.toast({
+        html: message,
+        inDuration: 800,
+        outDuration: 800,
+        displayLength: 2000
+    });
 }
