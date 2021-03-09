@@ -1,0 +1,104 @@
+body{
+    background-color: #b3e5fc;
+}
+
+#chat-window{
+    min-height:60vh;
+    background:#f1f1f1;
+    border:1px solid rgb(211, 207, 207);
+}
+
+#chat-app .container{
+    margin:10px 0;
+}
+
+#display{
+    padding-top:6px;
+    height:55vh;
+    overflow:scroll;
+}
+
+#active-users{
+    margin-top:0.7rem;
+}
+
+#display div{
+    font-size:20px;
+    margin:8px 20px;
+}
+
+.chat-msg span{
+    border-radius:7px;
+    padding:6px;
+    background-color:#ecf1f7;
+}
+
+#features{
+    display:flex;
+    justify-content:space-evenly;
+    /* border-radius:3px; */
+}
+
+#features span{
+    padding:10px 3px;
+    cursor:pointer;
+}
+
+#features span:hover{
+    background-color:#424242;
+}
+
+.myright{
+    text-align:right;
+}
+
+.myleft{
+    text-align:left;
+}
+
+.file-container{
+    border-radius:10px;
+    margin:10px;
+    width:33vw;
+    height:33vh
+}
+
+#upload{
+    cursor:pointer;
+}
+
+#download{
+    cursor:pointer;
+}
+
+.selected-file{
+    width:13rem;
+    height:13rem;
+    border-radius:8px;
+}
+
+#status-bar{
+    display:none;
+}
+
+#status-bar em{
+    font-size:16px;
+    margin:3px 23px;
+}
+
+#logo{
+    margin:0px 7px;
+}
+
+#logo i{
+    position:relative;
+    top:8px;
+}
+
+#file-input{
+    display:none;
+}
+
+#media-box{
+    display:none;
+}
