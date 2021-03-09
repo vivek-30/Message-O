@@ -30,18 +30,15 @@ io.on('connection',(socket) => {
     totalUsers++;
 
     io.emit('total-users',totalUsers);
-    socket.on('update-users',totalUsers => {
-        io.sockets.emit('total-users',totalUsers);
+
+    socket.on('myMsg',(data) => {
+        io.to(socket.id).emit('chat',data);
     });
 
     socket.on('chat',(data) => {
         users[socket.id] = data.user;
         // io.sockets.emit('chat',data);
         socket.broadcast.emit('chat',data);
-    });
-
-    socket.on('send-media',(data) => {
-        socket.broadcast.emit('recieve-media',data);
     });
 
     socket.on('status',(data) => {
@@ -51,9 +48,9 @@ io.on('connection',(socket) => {
     socket.on('disconnect',() => {
         //decrement totalUsers count when a user leaves the chat
         totalUsers--;
-        socket.broadcast.emit('left',{
+        socket.broadcast.emit('leave',{
             user:users[socket.id],
-            totalUsers:totalUsers
+            totalUsers
         });
         delete users[socket.id];
     });
