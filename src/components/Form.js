@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { socket } from '../clientStuff/chat';
+import { socket } from '../clientStuff/Chat';
 import { customAlert } from '../clientStuff/helperFunctions'
 
 const Form = () => {
 
-   const [ username, setUsername ] = useState('');
+   const [ user, setUser ] = useState('');
    const [ message, setMessage ] = useState('');
    const [ isDisabled, setIsDisabled ] = useState(false);
    const userRef = useRef(null)
@@ -16,7 +16,7 @@ const Form = () => {
 
     const handleSubmit = (e) => { 
         e.preventDefault();
-        if(message.trim() === '' || username.trim() === ''){
+        if(message.trim() === '' || user.trim() === ''){
             customAlert('Empty fields are not allowed')
             return;
         }
@@ -25,29 +25,34 @@ const Form = () => {
             setIsDisabled(true);
         }
 
+        socket.emit('myMsg',{
+            user,
+            message,
+            alignment: 'myright'
+        })
+
         socket.emit('chat',{
-            user: username,
-            message
+            user,
+            message,
+            alignment: 'myleft'
         })
 
         // clear input field for fresh message
         setMessage('') 
     
-        //     display.innerHTML+= `
-        //         <div class="chat-msg myright">
-        //             <span>${username} : ${message}</span>
-        //         </div>`;
-    
-        //     display.scrollTop = display.scrollHeight;
+        // display.scrollTop = display.scrollHeight;
     
     }
 
     const handleChange = (e) => {
         if(e.target.id === 'user'){
-            setUsername(e.target.value)
+            setUser(e.target.value)
         }
         else if(e.target.id === 'message'){
             setMessage(e.target.value)
+
+            // let others know that you are typing a message.
+            socket.emit('status',user)
         }
     }
 
@@ -55,7 +60,7 @@ const Form = () => {
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
             <div className="input-field">
                 <i className="material-icons prefix blue-text text-darken-2">person</i>
-                <input id="user" type="text" ref={userRef} onChange={handleChange} value={username} autoComplete="off" disabled={isDisabled} />
+                <input id="user" type="text" ref={userRef} onChange={handleChange} value={user} autoComplete="off" disabled={isDisabled} />
                 <label htmlFor="user">Your Name</label>
             </div>
             <div className="input-field">
