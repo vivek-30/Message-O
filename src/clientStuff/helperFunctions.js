@@ -2,22 +2,22 @@
 import M from 'materialize-css'
 
 // socket event funtions
-export const RespondToChat = (data) => {
-    // notify_tone.play()
-    console.log('respondToChat', data)
-}
+// export const RespondToChat = (data) => {
+//     // notify_tone.play()
+//     console.log('respondToChat', data)
+// }
 
-export const RespondToStatus = () => {
-    console.log('respondToStatus')
-}
+// export const RespondToStatus = () => {
+//     console.log('respondToStatus')
+// }
 
-export const RespondToLeave = () => {
-    console.log('respondToLeave')
-}
+// export const RespondToLeave = () => {
+//     console.log('respondToLeave')
+// }
 
-export const ManageUsersCount = (totalUsers) => {
-    console.log('ManageUsersCount',totalUsers)
-}
+// export const ManageUsersCount = (totalUsers) => {
+//     console.log('ManageUsersCount',totalUsers)
+// }
 
 // other helper functions
 export const customAlert = (message) => {
