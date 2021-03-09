@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { RespondToStatus, RespondToLeave, ManageUsersCount } from './helperFunctions'
+// import { RespondToStatus, RespondToLeave, ManageUsersCount } from './helperFunctions'
 const URL = 'http://localhost:4000'
  
 export const socket = io(URL)
@@ -8,10 +8,10 @@ export const socket = io(URL)
 // socket.on('chat',RespondToChat)
 
 // Respond to show total active users in chat
-socket.on('active',ManageUsersCount)
+// socket.on('active',ManageUsersCount)
 
 // Respond when a user types a message
-socket.on('status',RespondToStatus)
+// socket.on('status',RespondToStatus)
 
 // Respond when a user leaves the chat
-socket.on('leave',RespondToLeave)
+// socket.on('leave',RespondToLeave)
