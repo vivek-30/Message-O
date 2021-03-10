@@ -36,7 +36,6 @@ body{
 #features{
     display:flex;
     justify-content:space-evenly;
-    /* border-radius:3px; */
 }
 
 #features span{
@@ -56,27 +55,6 @@ body{
     text-align:left;
 }
 
-.file-container{
-    border-radius:10px;
-    margin:10px;
-    width:33vw;
-    height:33vh
-}
-
-#upload{
-    cursor:pointer;
-}
-
-#download{
-    cursor:pointer;
-}
-
-.selected-file{
-    width:13rem;
-    height:13rem;
-    border-radius:8px;
-}
-
 #status-bar{
     display:none;
 }
@@ -93,12 +71,4 @@ body{
 #logo i{
     position:relative;
     top:8px;
-}
-
-#file-input{
-    display:none;
-}
-
-#media-box{
-    display:none;
 }

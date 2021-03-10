@@ -11,7 +11,8 @@ const Form = () => {
    const messageRef = useRef(null)
 
     useEffect(() => {
-       userRef.current.focus() // Make focus on username input field
+       // Make focus on username input field
+       userRef.current.focus()
     },[])
 
     const handleSubmit = (e) => { 
@@ -38,10 +39,7 @@ const Form = () => {
         })
 
         // clear input field for fresh message
-        setMessage('') 
-    
-        // display.scrollTop = display.scrollHeight;
-    
+        setMessage('')    
     }
 
     const handleChange = (e) => {
@@ -68,7 +66,7 @@ const Form = () => {
                 <input id="message" type="text" ref={messageRef} onChange={handleChange} value={message} autoComplete="off" />
                 <label htmlFor="message">Your Message</label>
             </div>
-            <button type="submit" className="btn blue darken-2 z-depth-2" id="send-btn">
+            <button type="submit" className="btn blue darken-2 z-depth-2">
                 <span>Send</span>
                 <i className="material-icons right">send</i>
             </button>
