@@ -9,7 +9,8 @@ module.exports = {
     },
     "devtool": "source-map",
     "devServer": {
-        port: 3000
+        port: 3000,
+        open: true
     },
     "module": {
         "rules": [
@@ -45,7 +46,15 @@ module.exports = {
                         "loader": "html-loader"
                     }
                 ]
-            }
+            },
+            {
+                "test": /\.(png|jpe?g|gif|mp3)$/i,
+                "use": [
+                  {
+                    loader: 'file-loader',
+                  },
+                ],
+            },
         ]
     },
     "plugins": [
