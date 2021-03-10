@@ -1,6 +1,7 @@
 import React,{ useState, useEffect, useRef } from 'react'
 import { socket } from '../../clientStuff/Chat'
 import Message from '../../clientStuff/Message'
+import ChatTone from '../../../public/chat_tone.mp3'
 
 const ChatWindow = () => {
 
@@ -12,9 +13,11 @@ const ChatWindow = () => {
     })
 
     const bottomScrollRef = useRef(null)
+    const audioRef = useRef(null)
 
     useEffect(() => {
         socket.on('chat',(newData) => {
+            audioRef.current.play()
             setUser('')
             setData(data => [ ...data, newData ])
             setCSS({
@@ -45,6 +48,7 @@ const ChatWindow = () => {
             <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
                 <em>{user} is typing ...</em>
             </div>
+            <audio src={ChatTone} ref={audioRef} style={{display:"none"}} />
         </div>
     )
 }

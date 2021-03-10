@@ -4,7 +4,7 @@ import { customAlert } from '../clientStuff/helperFunctions'
 
 const Banner = () => {
 
-    const [ activeUsers, setActiveUsers ] = useState(0)
+    const [ activeUsers, setActiveUsers ] = useState(1)
 
     useEffect(() => {
         socket.on('total-users',(totalUsers) => {
