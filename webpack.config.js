@@ -51,10 +51,10 @@ module.exports = {
                 "test": /\.(png|jpe?g|gif|mp3)$/i,
                 "use": [
                   {
-                    loader: 'file-loader',
-                  },
-                ],
-            },
+                    "loader": "file-loader"
+                  }
+                ]
+            }
         ]
     },
     "plugins": [
