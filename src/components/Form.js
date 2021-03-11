@@ -48,7 +48,7 @@ const Form = () => {
         }
         else if(e.target.id === 'message'){
             setMessage(e.target.value)
-
+            
             // let others know that you are typing a message.
             socket.emit('status',user)
         }

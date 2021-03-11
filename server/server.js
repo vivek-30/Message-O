@@ -32,7 +32,7 @@ io.on('connection',(socket) => {
     io.emit('total-users',totalUsers);
 
     socket.on('myMsg',(data) => {
-        io.to(socket.id).emit('chat',data);
+        io.to(socket.id).emit('myMsg',data);
     });
 
     socket.on('chat',(data) => {
@@ -41,8 +41,8 @@ io.on('connection',(socket) => {
         socket.broadcast.emit('chat',data);
     });
 
-    socket.on('status',(data) => {
-        socket.broadcast.emit('status',data);
+    socket.on('status',(user) => {
+        socket.broadcast.emit('status',user);
     });
 
     socket.on('disconnect',() => {

@@ -16,14 +16,21 @@ const ChatWindow = () => {
     const audioRef = useRef(null)
 
     useEffect(() => {
-        socket.on('chat',(newData) => {
-            audioRef.current.play()
-            setUser('')
+
+        socket.on('myMsg',(newData) => {
             setData(data => [ ...data, newData ])
+        })
+
+        socket.on('chat',(newData) => {
             setCSS({
                 ...CSS,
                 display: 'none',
             })
+            setUser('')
+            setData(data => [ ...data, newData ])
+            setTimeout(()=>{
+                audioRef?.current?.play()
+            },0)
         })
 
         socket.on('status',(user) => {
