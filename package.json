@@ -1,11 +1,12 @@
 {
   "name": "chat-app",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A Real Time Chat APP with React, WebSocket and NodeJS",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
-    "server": "nodemon server/server.js",
+    "server": "node server/server.js",
+    "dev-server": "nodemon server/server.js",
     "build": "webpack --config webpack.config.js"
   },
   "keywords": [
