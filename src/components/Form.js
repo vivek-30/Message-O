@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../clientStuff/Chat';
 import { customAlert } from '../clientStuff/helperFunctions'
 
+export var displayEmoji = null
+
 const Form = () => {
 
    const [ user, setUser ] = useState('');
@@ -15,6 +17,23 @@ const Form = () => {
        userRef.current.focus()
     },[])
 
+    const emitMessage = (message, user = '', type = 'message') => {
+
+        socket.emit('myMsg',{
+            user,
+            message,
+            type,
+            alignment: 'myright'
+        })
+
+        socket.emit('chat',{
+            user,
+            message,
+            type,
+            alignment: 'myleft'
+        })
+    }
+
     const handleSubmit = (e) => { 
         e.preventDefault();
         if(message.trim() === '' || user.trim() === ''){
@@ -26,18 +45,7 @@ const Form = () => {
             setIsDisabled(true);
         }
 
-        socket.emit('myMsg',{
-            user,
-            message,
-            alignment: 'myright'
-        })
-
-        socket.emit('chat',{
-            user,
-            message,
-            alignment: 'myleft'
-        })
-
+        emitMessage(message,user)
         // clear input field for fresh message
         setMessage('')    
     }
@@ -53,6 +61,10 @@ const Form = () => {
             socket.emit('status',user)
         }
     }
+
+    displayEmoji = (emoji) => {   
+        emitMessage(emoji,user,'emoji')
+    }    
 
     return (
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
