@@ -6,5 +6,5 @@ export const customAlert = (message) => {
         inDuration: 800,
         outDuration: 800,
         displayLength: 2000
-    });
+    })
 }
