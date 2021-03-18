@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "emoji-mart": "^3.0.1",
     "express": "^4.17.1",
-    "materialize-css": "^1.0.0-rc.2",
+    "materialize-css": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
