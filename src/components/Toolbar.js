@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from 'emoji-mart';
-import { displayEmoji } from './Form';
-
-const pickerStyle = { 
-    top: '6rem', 
-    right: '0.7rem', 
-    width: '15rem', 
-    height: '27rem', 
-    backgroundColor: '#333' 
-}
+import Emoji from './emoji-picker/Emoji'
 
 const Toolbar = () => {
 
@@ -17,18 +8,7 @@ const Toolbar = () => {
 
     return (
         <>
-            <span>
-                <Picker
-                showPreview={false} 
-                showSkinTones={false}
-                onSelect={(emoji) => {
-                    setPicker(!picker)
-                    displayEmoji(emoji)
-                }}
-                emojiSize={30} 
-                style={{ display: picker ? 'block' : 'none', position: 'absolute', ...pickerStyle }} 
-                />
-            </span>
+            { picker && (<Emoji />) }
             <div className="grey darken-4" id="features">
                 <span><i className="material-icons small blue-text text-darken-2">wallpaper</i></span>
                 <span><i className="material-icons small blue-text text-darken-2">video_call</i></span>
