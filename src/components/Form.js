@@ -62,23 +62,23 @@ const Form = () => {
         }
     }
 
-    displayEmoji = (emoji) => {   
+    displayEmoji = (emoji) => { 
         emitMessage(emoji,user,'emoji')
     }    
 
     return (
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
             <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">person</i>
+                <i className="material-icons prefix teal-text text-ligthen-1">person</i>
                 <input id="user" type="text" ref={userRef} onChange={handleChange} value={user} autoComplete="off" disabled={isDisabled} />
                 <label htmlFor="user">Your Name</label>
             </div>
             <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">chat</i>
+                <i className="material-icons prefix teal-text text-lighten-1">chat</i>
                 <input id="message" type="text" ref={messageRef} onChange={handleChange} value={message} autoComplete="off" />
                 <label htmlFor="message">Your Message</label>
             </div>
-            <button type="submit" className="btn blue darken-2 z-depth-2">
+            <button type="submit" className="btn teal z-depth-2">
                 <span>Send</span>
                 <i className="material-icons right">send</i>
             </button>

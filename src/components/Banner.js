@@ -20,12 +20,12 @@ const Banner = () => {
     },[])
 
     return (
-        <div className="section center teal-text text-lighten-1">
+        <div className="section center">
             <a href="/" target="_blank">
-                <span className="flow-text blue-text text-darken-2">Chat App</span>
-                <span id="logo"><i className="material-icons blue-text text-darken-2">forum</i></span>
+                <span className="flow-text teal-text">Chat App</span>
+                <span id="logo"><i className="material-icons teal-text">forum</i></span>
             </a>
-            <span className="right green-text text-darken-4" id="active-users">{activeUsers} Active</span>
+            <span className="right teal-text text-darken-5" id="active-users">{activeUsers} Active</span>
         </div>
     )
 }
