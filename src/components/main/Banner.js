@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
-import { socket } from '../../clientStuff/Chat'
-import { customAlert } from '../../clientStuff/helperFunctions'
+import { socket } from '../../client/Chat'
+import { customAlert } from '../../client/helperFunctions'
 import { Link } from 'react-router-dom'
 
 const Banner = () => {

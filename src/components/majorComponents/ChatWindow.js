@@ -1,6 +1,6 @@
 import React,{ useState, useEffect, useRef } from 'react'
-import { socket } from '../../clientStuff/Chat'
-import Message from '../../clientStuff/Message'
+import { socket } from '../../client/Chat'
+import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
 
 const ChatWindow = () => {
