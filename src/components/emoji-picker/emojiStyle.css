@@ -24,8 +24,8 @@
 }
    
 .reactions .emoji-mart-scroll {
-    overflow: auto;
-    height: auto;  
+    overflow: scroll;
+    height: 8.5rem;  
 }
    
 .reactions .emoji-mart-category-label {
