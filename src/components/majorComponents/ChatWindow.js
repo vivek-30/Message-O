@@ -28,8 +28,11 @@ const ChatWindow = () => {
             })
             setUser('')
             setData(data => [ ...data, newData ])
-            audioRef.current.muted = false
-            audioRef.current.play()
+
+            if(audioRef){
+                audioRef.current.muted = false
+                audioRef.current?.play()
+            }
         })
 
         socket.on('status',(user) => {
