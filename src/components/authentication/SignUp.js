@@ -1,29 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
+import TakeInput from '../main/TakeInput'
 import './authenticate.css'
 
 const SignUp = () => {
+
+    const [ user, setUser ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ email, setEmail ] = useState('')
+    const [ contact, setContact ] = useState('')
+
+    const handleChange = (e) => {
+        const { id, value } = e.target
+        id === 'new-user' ? setUser(value) : id ===  'new-password' ? setPassword(value) : id === 'telephone' ? setContact(value) : id === 'email' ? setEmail(value) : null
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
+        setUser('')
+        setPassword('')
+        setEmail('')
+        setContact('')
+    }
+
     return (
-        <form className="authenticate">
-            <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">person</i>
-                <input id="new-user" type="text" autoComplete="off" />
-                <label htmlFor="new-user">Enter Your Name</label>
-            </div>
-            <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">mail</i>
-                <input id="email" type="text" autoComplete="off" />
-                <label htmlFor="email">Create A Email Address</label>
-            </div>
-            <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">lock</i>
-                <input name="new-password" type="password" autoComplete="off" />
-                <label htmlFor="new-password">Enter A Password</label>
-            </div>
-            <div className="input-field">
-                <i className="material-icons prefix blue-text text-darken-2">phone</i>
-                <input id="phone-number" type="number" autoComplete="off" />
-                <label htmlFor="phone-number">Enter A Contact Number</label>
-            </div>
+        <form className="authenticate" onSubmit={handleSubmit}>
+            <TakeInput 
+                iconName="person"  
+                labelText="Enter Your Name"
+                options={{
+                    id: "new-user", 
+                    type: 'text',
+                    handleChange,
+                    value: user
+                }}
+            />
+            
+            <TakeInput 
+                iconName="mail"  
+                labelText="Create A Email Address"
+                options={{
+                    id: "email", 
+                    type: 'email',
+                    handleChange,
+                    value: email
+                }}
+            />
+
+            <TakeInput 
+                iconName="lock"  
+                labelText="Create A Password"
+                options={{
+                    id: "new-password", 
+                    type: 'password',
+                    handleChange,
+                    value: password
+                }}
+            />
+
+            <TakeInput 
+                iconName="phone"  
+                labelText="Enter Your Contact Number"
+                options={{
+                    id: "telephone", 
+                    type: 'tel',
+                    handleChange,
+                    value: contact
+                }}
+            />
+            
             <button type="submit" className="btn blue darken-2 z-depth-2">
                 <span>Sign Up</span>
                 <i className="material-icons right">login</i>
