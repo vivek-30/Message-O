@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { socket } from '../../clientStuff/Chat';
-import { customAlert } from '../../clientStuff/helperFunctions'
+import { socket } from '../../client/Chat'
+import { customAlert } from '../../client/helperFunctions'
+import TakeInput from './TakeInput'
 
 export var displayEmoji = null
 
@@ -8,13 +9,13 @@ const Form = () => {
 
    const [ user, setUser ] = useState('');
    const [ message, setMessage ] = useState('');
-   const [ isDisabled, setIsDisabled ] = useState(false);
+   const [ isDisabled, setIsDisabled ] = useState(false)
    const userRef = useRef(null)
    const messageRef = useRef(null)
 
     useEffect(() => {
        // Make focus on username input field
-       userRef.current.focus()
+       userRef.current?.focus()
     },[])
 
     const emitMessage = (message, user = '', type = 'message') => {
@@ -34,6 +35,14 @@ const Form = () => {
         })
     }
 
+    const handleChange = (e) => {
+        const { id, value } = e.target
+        id === 'user' ? setUser(value) : id ===  'message' ? setMessage(value) : null
+
+        // let others know that you are typing a message.
+        isDisabled && message.trim() !== '' ? socket.emit('status', user) : null
+    }
+
     const handleSubmit = (e) => { 
         e.preventDefault();
         if(message.trim() === '' || user.trim() === ''){
@@ -45,39 +54,44 @@ const Form = () => {
             setIsDisabled(true);
         }
 
-        emitMessage(message,user)
+        emitMessage(message, user)
         // clear input field for fresh message
         setMessage('')    
     }
 
-    const handleChange = (e) => {
-        if(e.target.id === 'user'){
-            setUser(e.target.value)
-        }
-        else if(e.target.id === 'message'){
-            setMessage(e.target.value)
-            
-            // let others know that you are typing a message.
-            socket.emit('status',user)
-        }
-    }
-
     displayEmoji = (emoji) => { 
-        emitMessage(emoji,user,'emoji')
+        emitMessage(emoji, user, 'emoji')
     }    
 
     return (
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
-            <div className="input-field">
-                <i className="material-icons prefix teal-text text-ligthen-1">person</i>
-                <input id="user" type="text" ref={userRef} onChange={handleChange} value={user} autoComplete="off" disabled={isDisabled} />
-                <label htmlFor="user">Your Name</label>
-            </div>
-            <div className="input-field">
-                <i className="material-icons prefix teal-text text-lighten-1">chat</i>
-                <input id="message" type="text" ref={messageRef} onChange={handleChange} value={message} autoComplete="off" />
-                <label htmlFor="message">Your Message</label>
-            </div>
+             <TakeInput 
+                iconName="person" 
+                labelText="Your Name"
+                iconColor="teal"
+                options={{
+                    id: "user", 
+                    type: 'text',
+                    handleChange,
+                    value: user,
+                    ref: userRef,
+                    disabled: isDisabled
+                }}
+            />
+
+            <TakeInput 
+                iconName="chat" 
+                labelText="Your Message"
+                iconColor="teal"
+                options={{
+                    id: "message", 
+                    type: 'text',
+                    handleChange,
+                    value: message,
+                    ref: messageRef,
+                }}
+            />
+
             <button type="submit" className="btn teal z-depth-2">
                 <span>Send</span>
                 <i className="material-icons right">send</i>
