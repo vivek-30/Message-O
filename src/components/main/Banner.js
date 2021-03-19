@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
-import { socket } from '../clientStuff/Chat'
-import { customAlert } from '../clientStuff/helperFunctions'
+import { socket } from '../../clientStuff/Chat'
+import { customAlert } from '../../clientStuff/helperFunctions'
+import { Link } from 'react-router-dom'
 
 const Banner = () => {
 
@@ -21,10 +22,10 @@ const Banner = () => {
 
     return (
         <div className="section center">
-            <a href="/" target="_blank">
+            <Link to="/chat" target="_blank">
                 <span className="flow-text teal-text">Chat App</span>
                 <span id="logo"><i className="material-icons teal-text">forum</i></span>
-            </a>
+            </Link>
             <span className="right teal-text text-darken-5" id="active-users">{activeUsers} Active</span>
         </div>
     )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Picker } from 'emoji-mart';
 import { CustomEmotes } from './CustomEmotes'
-import { displayEmoji } from '../Form'
+import { displayEmoji } from '../main/Form'
 import './emojiStyle.css'
 
 const pickerStyle = { 

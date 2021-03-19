@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { socket } from '../clientStuff/Chat';
-import { customAlert } from '../clientStuff/helperFunctions'
+import { socket } from '../../clientStuff/Chat';
+import { customAlert } from '../../clientStuff/helperFunctions'
 
 export var displayEmoji = null
 
