@@ -1,4 +1,4 @@
-.auth {
+.authenticate {
     background-color: #f2f2f2;
     border-radius: 10px;
     z-index: 1;
@@ -10,7 +10,7 @@
 
 }
 
-.auth div {
+.authenticate div {
     margin: 1rem;
 }
 

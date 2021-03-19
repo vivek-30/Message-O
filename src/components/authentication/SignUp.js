@@ -1,9 +1,9 @@
 import React from 'react'
-import './auth.css'
+import './authenticate.css'
 
 const SignUp = () => {
     return (
-        <form className="auth">
+        <form className="authenticate">
             <div className="input-field">
                 <i className="material-icons prefix blue-text text-darken-2">person</i>
                 <input id="new-user" type="text" autoComplete="off" />
