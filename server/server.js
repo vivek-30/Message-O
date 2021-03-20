@@ -1,19 +1,27 @@
-const express = require('express');
 const http = require('http');
+const cors = require('cors');
+const express = require('express');
+const socket = require('socket.io');
+const bodyParser = require('body-parser');
+const router = require('./router');
+
 const app = express();
 const server = http.createServer(app);
-const socket = require('socket.io');
-const cors = require('cors');
-const router = require('./router');
 const PORT = process.env.PORT || 4000;
 
 var users = {};
 var totalUsers = 0;
 
-// For CORS Behaviour
+// Handle CORS Behaviour.
 app.use(cors());
 
-// Handle requests
+// Parse JSON Data.
+app.use(bodyParser.json());
+
+// Handle deprecations.
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Handle Requests.
 app.use(router);
 
 const io = socket(server,{
