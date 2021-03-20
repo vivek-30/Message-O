@@ -25,6 +25,7 @@ const SignUp = () => {
 
     return (
         <form className="authenticate" onSubmit={handleSubmit}>
+            <h4 className="blue-text text-darken-2">Sign Up</h4>
             <TakeInput 
                 iconName="person"  
                 labelText="Enter Your Name"
