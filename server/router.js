@@ -1,15 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const Model = require('./database/model');
+const User = require('./database/model');
 const router = express.Router();
+const { createToken, handleErrors } = require('./controllers/helperFunctions');
+const verify = require('./middleware/authMiddleWare');
 
-const saltRounds = 10;
+const MaxAge = 3 * 24 * 60 * 60;
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/chatAppUsers', { 
     useNewUrlParser: true, 
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 });
 
 router.get('/',(req, res) => {
@@ -19,50 +21,60 @@ router.get('/',(req, res) => {
     });
 });
 
-router.get('/chat',(req, res) => {
+router.get('/chat', verify, (req, res) => {
     res.status(200).send({
         response: 'Server is successfully running....',
         message: 'Happy Chating.'
     });
 });
 
-router.post('/new-user', (req, res, next) => {
+router.post('/sign-up', (req, res, next) => {
+
     const { name, email, password, contact } = req.body;
 
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-        
-        if(err) {
-            res.status(500).send('Internal error while securing your password');
-            next(); 
-        }
-
-        const NewUser = new Model({
-            name,
-            email,
-            password: hash,
-            contact
-        });
-
-        if(!NewUser) {
-            res.status(500).send('Internal error while securing your password');
-            next();
-        }
-
-        NewUser.save().then((user) => {
-            res.status(200).send({
-                response: 'You have successfully logged In. Welcome to the chat app',
-                user
-            });
-        }).catch((error) => {
-            if(error) {
-                console.log('error', error);
-                res.status(500).send({
-                    response: 'There is problem with our server please try after some time',
-                    error
-                });
-            }
-        });
+    const NewUser = new User({
+        name,
+        email,
+        password,
+        contact
     });
+
+    if(!NewUser) {
+        res.status(500).send('Internal error while creating a new user');
+        next();
+    }
+
+    NewUser.save().then((user) => {
+        res.status(200).send({
+            response: 'You have successfully logged In. Welcome to the chat app',
+            user
+        });
+    }).catch((error) => {
+        if(error) {
+            console.log('error while adding a new user', error);
+            res.status(500).send({
+                response: 'Internal error while saving you data',
+                error
+            });
+        }
+    });
+});
+
+router.post('/sign-in',(req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = User.login(email, password);
+        const token = createToken(user._id);
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: MaxAge * 1000
+        });
+        res.status(201).json({ user: user._id });
+    }
+    catch(err) {
+        const Errors = handleErrors(err);
+        res.status(400).json({ Errors });
+    }
 });
 
 module.exports = router;
