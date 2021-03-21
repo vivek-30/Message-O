@@ -16,7 +16,32 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
+        // console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
+        fetch('http://127.0.0.1:4000/sign-up', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: user,
+                email,
+                password,
+                contact
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            if(res.status === 200 || res.status === 201) {
+                // this.props.history.push('/');
+                console.log(res)
+            }
+            else {
+                const error = new Error(res.error);
+                throw error;
+            }
+        }).catch(err => {
+            console.error(err);
+            alert('Error logging in please try again');
+        })
+
         setUser('')
         setPassword('')
         setEmail('')
