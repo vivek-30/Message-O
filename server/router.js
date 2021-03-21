@@ -60,16 +60,16 @@ router.post('/sign-up', (req, res, next) => {
     });
 });
 
-router.post('/sign-in',(req, res) => {
+router.post('/sign-in', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = User.login(email, password);
+        const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: MaxAge * 1000
         });
-        res.status(201).json({ user: user._id });
+        res.status(200).json({ user: user._id });
     }
     catch(err) {
         const Errors = handleErrors(err);

@@ -2,7 +2,7 @@ const http = require('http');
 const cors = require('cors');
 const express = require('express');
 const socket = require('socket.io');
-const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
 const router = require('./router');
 
 const app = express();
@@ -16,10 +16,10 @@ var totalUsers = 0;
 app.use(cors());
 
 // Parse JSON Data.
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Handle deprecations.
-app.use(bodyParser.urlencoded({ extended: false }));
+// Set cookie parser.
+app.use(cookieParser());
 
 // Handle Requests.
 app.use(router);
