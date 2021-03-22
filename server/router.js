@@ -45,10 +45,14 @@ router.post('/sign-up', (req, res, next) => {
     }
 
     NewUser.save().then((user) => {
-        res.status(200).send({
-            response: 'You have successfully logged In. Welcome to the chat app',
-            user
+        const token = createToken(user._id);
+        res.cookie('jwt', token, { 
+            httpOnly: true, 
+            maxAge: MaxAge * 1000,
+            sameSite: 'none',
+            secure: true
         });
+        res.status(201).json({ user: user._id });
     }).catch((error) => {
         if(error) {
             console.log('error while adding a new user', error);
@@ -67,13 +71,15 @@ router.post('/sign-in', async (req, res) => {
         const token = createToken(user._id);
         res.cookie('jwt', token, {
             httpOnly: true,
-            maxAge: MaxAge * 1000
+            maxAge: MaxAge * 1000,
+            sameSite: 'none',
+            secure: true
         });
         res.status(200).json({ user: user._id });
     }
     catch(err) {
         const Errors = handleErrors(err);
-        res.status(400).json({ Errors });
+        res.status(401).json({ Errors });
     }
 });
 

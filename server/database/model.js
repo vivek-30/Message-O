@@ -30,10 +30,10 @@ userSchema.pre('save', async function(next) {
 });
 
 userSchema.statics.login = async function(email, password) {
-    const user = this.findOne({ email });
+    const user = await this.findOne({ email });
     if(user) {
         // Return true if matches else return false
-        const verified = bcrypt.compare(password, user.password);
+        const verified = await bcrypt.compare(password, user.password);
         if(verified) {
             return user;
         }else {
