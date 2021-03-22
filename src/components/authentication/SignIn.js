@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import TakeInput from '../main/TakeInput'
+import { makePostRequest } from '../../client/helperFunctions'
 import './authenticate.css'
 
 const SignIn = () => {
@@ -15,26 +16,13 @@ const SignIn = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log(`user = ${user} password = ${password}`)
-        fetch('http://127.0.0.1:4000/sign-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }).then((res) => {
-            if(res.status === 200 || res.status === 201) {
-                return res.json()
-            }
-        }).then((result) => {
-            console.log('signin result -> ',result)
-        }).catch((err) => {
-            console.error('error in signin', err);
-            alert('Error logging in please try again');
-        })
+        const data = {
+            email,
+            password
+        }
+        const result = makePostRequest('http://127.0.0.1:4000/sign-in', data)
+        console.log('result', result)
+
         setEmail('')
         setPassword('')
     }

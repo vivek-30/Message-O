@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import TakeInput from '../main/TakeInput'
+import { makePostRequest } from '../../client/helperFunctions'
 import './authenticate.css'
 
 const SignUp = () => {
 
     const [ user, setUser ] = useState('')
-    const [ password, setPassword ] = useState('')
     const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
     const [ contact, setContact ] = useState('')
 
     const handleChange = (e) => {
@@ -17,35 +18,14 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
-        fetch('http://127.0.0.1:4000/sign-up', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                name: user,
-                email,
-                password,
-                contact
-            })
-        }).then((res) => {
-            if(res.status === 200 || res.status === 201) {
-                // this.props.history.push('/');
-                // console.log(res)
-                return res.json()
-            }
-            else {
-                const error = new Error(res.error)
-                throw error;
-            }
-        }).then((result) => {
-            console.log('signup result ->', result)
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error logging in please try again')
-        })
+        const data = {
+            name: user,
+            email,
+            password,
+            contact
+        }
+        const result = makePostRequest('http://127.0.0.1:4000/sign-up', data)
+        console.log('result', result)
 
         setUser('')
         setPassword('')
