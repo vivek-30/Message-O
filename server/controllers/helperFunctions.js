@@ -30,8 +30,8 @@ const handleErrors = (err) => {
     return errors;
 }
 
-const createToken = (id) => {
-    return jwt.sign({ id }, 'super secret chat-app in react', {
+const createToken = (id, Secret) => {
+    return jwt.sign({ id }, Secret, {
         expiresIn: MaxAge
     });
 }
