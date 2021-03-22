@@ -19,27 +19,32 @@ const SignUp = () => {
         // console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
         fetch('http://127.0.0.1:4000/sign-up', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: "include",
             body: JSON.stringify({
                 name: user,
                 email,
                 password,
                 contact
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            })
         }).then((res) => {
             if(res.status === 200 || res.status === 201) {
                 // this.props.history.push('/');
-                console.log(res)
+                // console.log(res)
+                return res.json()
             }
             else {
-                const error = new Error(res.error);
+                const error = new Error(res.error)
                 throw error;
             }
-        }).catch(err => {
+        }).then((result) => {
+            console.log('signup result ->', result)
+        })
+        .catch(err => {
             console.error(err);
-            alert('Error logging in please try again');
+            alert('Error logging in please try again')
         })
 
         setUser('')
