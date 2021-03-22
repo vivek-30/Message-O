@@ -13,13 +13,30 @@ var users = {};
 var totalUsers = 0;
 
 // Handle CORS Behaviour.
-app.use(cors());
+app.use(cors(
+    {
+        origin: 'http://localhost:3000',
+        optionsSuccessStatus: 200,
+        credentials: true
+    }
+));
 
 // Parse JSON Data.
 app.use(express.json());
 
 // Set cookie parser.
 app.use(cookieParser());
+
+// Handle credentials and cookie for browser.
+app.use(function(req, res, next) {
+    res.header('Content-Type', 'application/json;charset=UTF-8');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
 
 // Handle Requests.
 app.use(router);
