@@ -4,11 +4,14 @@ const User = require('./database/model');
 const router = express.Router();
 const { createToken, handleErrors } = require('./controllers/helperFunctions');
 const verify = require('./middleware/authMiddleWare');
+require('dotenv').config();
 
+const Secret = process.env.SECRET;
+const URI = process.env.DATABASE_URI;
 const MaxAge = 3 * 24 * 60 * 60;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/chatAppUsers', { 
+mongoose.connect(URI, { 
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -45,7 +48,7 @@ router.post('/sign-up', (req, res, next) => {
     }
 
     NewUser.save().then((user) => {
-        const token = createToken(user._id);
+        const token = createToken(user._id, Secret);
         res.cookie('jwt', token, { 
             httpOnly: true, 
             maxAge: MaxAge * 1000,
@@ -68,7 +71,7 @@ router.post('/sign-in', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.login(email, password);
-        const token = createToken(user._id);
+        const token = createToken(user._id, Secret);
         res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: MaxAge * 1000,
@@ -79,6 +82,7 @@ router.post('/sign-in', async (req, res) => {
     }
     catch(err) {
         const Errors = handleErrors(err);
+        console.log('error ocurred ', err)
         res.status(401).json({ Errors });
     }
 });
