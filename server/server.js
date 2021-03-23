@@ -2,7 +2,7 @@ const http = require('http');
 const cors = require('cors');
 const express = require('express');
 const socket = require('socket.io');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const router = require('./router');
 
 const app = express();

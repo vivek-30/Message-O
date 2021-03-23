@@ -1,13 +1,12 @@
 body,nav {
-    /* background-color: #b3e5fc; old color */
     background: #FFAFBD;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #ffc3a0, #FFAFBD);
     background: linear-gradient(to right, #ffc3a0, #FFAFBD);
 }
 
 #chat-window {
-    min-height:60vh;
-    background:#f1f1f1;
+    min-height: 60vh;
+    background: #f1f1f1;
     border: 1px solid rgb(211, 207, 207);
 }
 
@@ -27,7 +26,7 @@ body,nav {
 
 #display div {
     font-size: 20px;
-    margin:8px 20px;
+    margin: 8px 20px;
 }
 
 .chat-msg span {
