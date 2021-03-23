@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
+// import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
 const SignUp = () => {
@@ -10,22 +11,25 @@ const SignUp = () => {
     const [ password, setPassword ] = useState('')
     const [ contact, setContact ] = useState('')
 
+    // const history = useHistory();
+
     const handleChange = (e) => {
         const { id, value } = e.target
         id === 'new-user' ? setUser(value) : id ===  'new-password' ? setPassword(value) : id === 'telephone' ? setContact(value) : id === 'email' ? setEmail(value) : null
     }
 
     const handleSubmit = (e) => {
+
         e.preventDefault()
-        // console.log(`user = ${user} password = ${password} email = ${email} contact = ${contact}`)
         const data = {
             name: user,
             email,
             password,
             contact
         }
+
         const result = makePostRequest('http://127.0.0.1:4000/sign-up', data)
-        console.log('result', result)
+        console.log('Result from signup', result)
 
         setUser('')
         setPassword('')

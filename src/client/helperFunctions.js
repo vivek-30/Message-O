@@ -22,25 +22,22 @@ export const makePostRequest = (URL, Data) => {
             body: JSON.stringify(Data)
     })
     .then((response) => {
-        if(response.status === 200 || response.status === 201) {
-            // this.props.history.push('/');
-            // console.log(res)
-            return response.json()
+        if(response.ok) {
+            // history.push('/chat')
         }
         else {
-            console.log(response.json(), response)
-            const error = new Error(response.error)
-            throw error;
+            // const error = new Error(response.error)
+            console.log('response error message', response.statusText)
         }
+        return response.json()
     })
     .then((data) => {
-        console.log('signup result ->', data)
-        output = data;
+        console.log('post request result ->', data.errors, data.user)
+        output = data
     })
     .catch((err) => {
-        console.error(err);
-        output = err;
-        alert('Error logging in please try again')
+        console.error('fetch error ->', err)
+        output = err
     })
 
     return output
