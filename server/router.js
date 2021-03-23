@@ -43,7 +43,9 @@ router.post('/sign-up', (req, res, next) => {
     });
 
     if(!NewUser) {
-        res.status(500).send('Internal error while creating a new user');
+        res.status(500).json({
+            error: 'Internal Server Error while creating a new user'
+        });
         next();
     }
 
@@ -58,9 +60,9 @@ router.post('/sign-up', (req, res, next) => {
         res.status(201).json({ user: user._id });
     }).catch((error) => {
         if(error) {
-            console.log('error while adding a new user', error);
-            res.status(500).send({
-                response: 'Internal error while saving you data',
+            // console.log('Error while adding a new user', error);
+            res.status(500).json({
+                response: 'Internal Server Error while saving you data',
                 error
             });
         }
@@ -81,9 +83,9 @@ router.post('/sign-in', async (req, res) => {
         res.status(200).json({ user: user._id });
     }
     catch(err) {
-        const Errors = handleErrors(err);
-        console.log('error ocurred ', err)
-        res.status(401).json({ Errors });
+        const errors = handleErrors(err);
+        // console.log('Error occurred while logging in a user', err);
+        res.status(401).json({ errors });
     }
 });
 
