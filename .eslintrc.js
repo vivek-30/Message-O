@@ -1,6 +1,6 @@
 module.exports = {
     "env": {
-        "browser": true
+      "browser": true
     },
     "plugins": [ "react" ],
     "extends": [
@@ -10,5 +10,10 @@ module.exports = {
     "parser": "babel-eslint",
     "rules": {
       "react/prop-types": "off"
-    }    
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }   
 };
