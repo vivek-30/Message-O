@@ -9,9 +9,9 @@ export const customAlert = (message) => {
     })
 }
 
-export const makePostRequest = (URL, Data) => {
+export const makePostRequest = (URL, Data, setResponseData) => {
 
-    var output = 'No output yet!'
+    var responseData = {}
 
     fetch(URL, {
             method: 'POST',
@@ -22,23 +22,19 @@ export const makePostRequest = (URL, Data) => {
             body: JSON.stringify(Data)
     })
     .then((response) => {
-        if(response.ok) {
-            // history.push('/chat')
-        }
-        else {
-            // const error = new Error(response.error)
-            console.log('response error message', response.statusText)
+        if(!response.ok) {
+            console.log('Error : ', response.statusText)
         }
         return response.json()
     })
     .then((data) => {
-        console.log('post request result ->', data.errors, data.user)
-        output = data
+        responseData['user'] = data.user
+        responseData['errors'] = data.errors
+        setResponseData(responseData)
     })
     .catch((err) => {
-        console.error('fetch error ->', err)
-        output = err
+        console.error('Error in making post request', err)
+        responseData['errors'] = err
+        setResponseData(responseData)
     })
-
-    return output
 }
