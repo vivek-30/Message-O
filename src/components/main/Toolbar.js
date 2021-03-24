@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import 'emoji-mart/css/emoji-mart.css';
+import 'emoji-mart/css/emoji-mart.css'
 import Emoji from '../emoji-picker/Emoji'
 
 const Toolbar = () => {

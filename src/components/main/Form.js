@@ -7,8 +7,8 @@ export var displayEmoji = null
 
 const Form = () => {
 
-   const [ user, setUser ] = useState('');
-   const [ message, setMessage ] = useState('');
+   const [ user, setUser ] = useState('')
+   const [ message, setMessage ] = useState('')
    const [ isDisabled, setIsDisabled ] = useState(false)
    const userRef = useRef(null)
    const messageRef = useRef(null)
@@ -16,18 +16,18 @@ const Form = () => {
     useEffect(() => {
        // Make focus on username input field
        userRef.current?.focus()
-    },[])
+    }, [])
 
     const emitMessage = (message, user = '', type = 'message') => {
 
-        socket.emit('myMsg',{
+        socket.emit('myMsg', {
             user,
             message,
             type,
             alignment: 'myright'
         })
 
-        socket.emit('chat',{
+        socket.emit('chat', {
             user,
             message,
             type,
@@ -44,14 +44,14 @@ const Form = () => {
     }
 
     const handleSubmit = (e) => { 
-        e.preventDefault();
+        e.preventDefault()
         if(message.trim() === '' || user.trim() === ''){
             customAlert('Empty fields are not allowed')
-            return;
+            return
         }
 
         if(!isDisabled){
-            setIsDisabled(true);
+            setIsDisabled(true)
         }
 
         emitMessage(message, user)
@@ -88,7 +88,7 @@ const Form = () => {
                     type: 'text',
                     handleChange,
                     value: message,
-                    ref: messageRef,
+                    ref: messageRef
                 }}
             />
 

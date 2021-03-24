@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { socket } from '../../client/Chat'
 import { customAlert } from '../../client/helperFunctions'
 import { Link } from 'react-router-dom'
@@ -8,17 +8,17 @@ const Banner = () => {
     const [ activeUsers, setActiveUsers ] = useState(1)
 
     useEffect(() => {
-        socket.on('total-users',(totalUsers) => {
+        socket.on('total-users', (totalUsers) => {
             setActiveUsers(totalUsers)
         })
 
-        socket.on('leave',({ totalUsers, user }) => {
+        socket.on('leave', ({ totalUsers, user }) => {
             setActiveUsers(totalUsers)
-            if(user){
+            if(user) {
                 customAlert(`${user} Left The Chat`)
             }
         })
-    },[])
+    }, [])
 
     return (
         <div className="section center">

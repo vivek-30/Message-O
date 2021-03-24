@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Picker } from 'emoji-mart';
+import { Picker } from 'emoji-mart'
 import { displayEmoji } from '../main/Form'
 import './emojiStyle.css'
 

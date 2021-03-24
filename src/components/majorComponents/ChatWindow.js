@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../client/Chat'
 import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
@@ -8,7 +8,7 @@ const ChatWindow = () => {
     const [ data, setData ] = useState([])
     const [ user, setUser ] = useState('')
     const [ CSS, setCSS ] = useState({
-        backgroundColor: '#c2c2c2',
+        backgroundColor: '#c2c2c2', 
         padding: '8px 20px'
     })
 
@@ -17,14 +17,14 @@ const ChatWindow = () => {
 
     useEffect(() => {
 
-        socket.on('myMsg',(newData) => {
+        socket.on('myMsg', (newData) => {
             setData(data => [ ...data, newData ])
         })
 
-        socket.on('chat',(newData) => {
+        socket.on('chat', (newData) => {
             setCSS({
-                ...CSS,
-                display: 'none',
+                ...CSS, 
+                display: 'none'
             })
             setUser('')
             setData(data => [ ...data, newData ])
@@ -35,10 +35,10 @@ const ChatWindow = () => {
             }
         })
 
-        socket.on('status',(user) => {
+        socket.on('status', (user) => {
             setCSS({
                 ...CSS,
-                display: 'block',
+                display: 'block'
             })
             setUser(user)
         })
