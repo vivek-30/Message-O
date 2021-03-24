@@ -5,7 +5,8 @@ export const customAlert = (message) => {
         html: message,
         inDuration: 800,
         outDuration: 800,
-        displayLength: 2000
+        displayLength: 2000,
+        classes: 'rounded white black-text'
     })
 }
 
