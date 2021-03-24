@@ -1,36 +1,18 @@
 import React from 'react'
-import Banner from './components/main/Banner'
-import Form from './components/main/Form'
-import Toolbar from './components/main/Toolbar'
-import ChatWindow from './components/majorComponents/ChatWindow'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import Chat from './Chat'
 import SignUp from './components/authentication/SignUp'
-import NavBar from './components/authentication/NavBar'
 import SignIn from './components/authentication/SignIn'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
   return (
     <div className="container" id="chat-app">
-
       <Router>
-      <NavBar />
         <Switch>
-          <Route exact path="/">
-            <SignUp />
-          </Route>
-            <Route path="/SignUp">
-              <SignUp />
-            </Route>
-            <Route path="/SignIn">
-              <SignIn />
-            <Link to="/chat" className="center">go</Link>
-          </Route>
-          <Route path="/chat">
-            <Banner />
-            <ChatWindow />
-            <Toolbar />
-            <Form />
-          </Route>
+          <Route exact path="/" component={SignUp} />
+          <Route path="/SignUp" component={SignUp} />
+          <Route path="/SignIn" component={SignIn} />
+          <Route path="/chat" component={Chat} />
         </Switch>
       </Router>
     </div>
