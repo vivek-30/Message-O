@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
+import NavBar from './NavBar'
 import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
@@ -37,35 +38,38 @@ const SignIn = () => {
     }
 
     return (
-        <form className="authenticate" onSubmit={handleSubmit}>
-            <h4 className="blue-text text-darken-2">Sign In</h4>
-            <TakeInput 
-                iconName="mail" 
-                labelText="Enter Your Email"
-                options={{
-                    id: "user-email", 
-                    type: 'email',
-                    handleChange,
-                    value: email
-                }}
-            />
+        <>
+        <NavBar />
+            <form className="authenticate" onSubmit={handleSubmit}>
+                <h4 className="blue-text text-darken-2">Sign In</h4>
+                <TakeInput 
+                    iconName="mail" 
+                    labelText="Enter Your Email"
+                    options={{
+                        id: "user-email", 
+                        type: 'email',
+                        handleChange,
+                        value: email
+                    }}
+                />
 
-            <TakeInput 
-                iconName="lock"  
-                labelText="Enter Your Password"
-                options={{
-                    id: "password", 
-                    type: 'password',
-                    handleChange,
-                    value: password
-                }}
-            />
+                <TakeInput 
+                    iconName="lock"  
+                    labelText="Enter Your Password"
+                    options={{
+                        id: "password", 
+                        type: 'password',
+                        handleChange,
+                        value: password
+                    }}
+                />
 
-            <button type="submit" className="btn blue darken-2 z-depth-2">
-                <span>Sign In</span>
-                <i className="material-icons right">login</i>
-            </button>
-        </form>
+                <button type="submit" className="btn blue darken-2 z-depth-2">
+                    <span>Sign In</span>
+                    <i className="material-icons right">login</i>
+                </button>
+            </form>
+        </>
     )
 }
 

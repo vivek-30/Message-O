@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
+import NavBar from './NavBar'
 import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
@@ -43,57 +44,60 @@ const SignUp = () => {
     }
 
     return (
-        <form className="authenticate" onSubmit={handleSubmit}>
-            <h4 className="blue-text text-darken-2">Sign Up</h4>
-            <TakeInput 
-                iconName="person"  
-                labelText="Enter Your Name"
-                options={{
-                    id: "new-user", 
-                    type: 'text',
-                    handleChange,
-                    value: user
-                }}
-            />
-            
-            <TakeInput 
-                iconName="mail"  
-                labelText="Create A Email Address"
-                options={{
-                    id: "email", 
-                    type: 'email',
-                    handleChange,
-                    value: email
-                }}
-            />
+        <>
+            <NavBar />
+            <form className="authenticate" onSubmit={handleSubmit}>
+                <h4 className="blue-text text-darken-2">Sign Up</h4>
+                <TakeInput 
+                    iconName="person"  
+                    labelText="Enter Your Name"
+                    options={{
+                        id: "new-user", 
+                        type: 'text',
+                        handleChange,
+                        value: user
+                    }}
+                />
+                
+                <TakeInput 
+                    iconName="mail"  
+                    labelText="Create A Email Address"
+                    options={{
+                        id: "email", 
+                        type: 'email',
+                        handleChange,
+                        value: email
+                    }}
+                />
 
-            <TakeInput 
-                iconName="lock"  
-                labelText="Create A Password"
-                options={{
-                    id: "new-password", 
-                    type: 'password',
-                    handleChange,
-                    value: password
-                }}
-            />
+                <TakeInput 
+                    iconName="lock"  
+                    labelText="Create A Password"
+                    options={{
+                        id: "new-password", 
+                        type: 'password',
+                        handleChange,
+                        value: password
+                    }}
+                />
 
-            <TakeInput 
-                iconName="phone"  
-                labelText="Enter Your Contact Number"
-                options={{
-                    id: "telephone", 
-                    type: 'tel',
-                    handleChange,
-                    value: contact
-                }}
-            />
-            
-            <button type="submit" className="btn blue darken-2 z-depth-2">
-                <span>Sign Up</span>
-                <i className="material-icons right">login</i>
-            </button>
-        </form>
+                <TakeInput 
+                    iconName="phone"  
+                    labelText="Enter Your Contact Number"
+                    options={{
+                        id: "telephone", 
+                        type: 'tel',
+                        handleChange,
+                        value: contact
+                    }}
+                />
+                
+                <button type="submit" className="btn blue darken-2 z-depth-2">
+                    <span>Sign Up</span>
+                    <i className="material-icons right">login</i>
+                </button>
+            </form>
+        </>
     )
 }
 
