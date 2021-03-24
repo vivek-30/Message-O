@@ -2,7 +2,7 @@
     background-color: #f2f2f2;
     border-radius: 10px;
     z-index: 1;
-    width: 80%;
+    width: 85%;
     box-shadow: 1px 1px 16px -6px rgba(0,1,1,0.6);
     padding: 3rem;
     margin: 2rem auto;
@@ -11,7 +11,7 @@
 }
 
 .authenticate div {
-    margin: 1rem;
+    margin: 2rem 0;
 }
 
 nav {

@@ -50,7 +50,7 @@ const SignUp = () => {
                 <h4 className="blue-text text-darken-2">Sign Up</h4>
                 <TakeInput 
                     iconName="person"  
-                    labelText="Enter Your Name"
+                    labelText="Your Name"
                     options={{
                         id: "new-user", 
                         type: 'text',
@@ -61,7 +61,7 @@ const SignUp = () => {
                 
                 <TakeInput 
                     iconName="mail"  
-                    labelText="Create A Email Address"
+                    labelText="Your Email Address"
                     options={{
                         id: "email", 
                         type: 'email',
@@ -72,7 +72,7 @@ const SignUp = () => {
 
                 <TakeInput 
                     iconName="lock"  
-                    labelText="Create A Password"
+                    labelText="Your Password"
                     options={{
                         id: "new-password", 
                         type: 'password',
@@ -83,7 +83,7 @@ const SignUp = () => {
 
                 <TakeInput 
                     iconName="phone"  
-                    labelText="Enter Your Contact Number"
+                    labelText="Your Contact Number"
                     options={{
                         id: "telephone", 
                         type: 'tel',

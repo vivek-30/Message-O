@@ -44,7 +44,7 @@ const SignIn = () => {
                 <h4 className="blue-text text-darken-2">Sign In</h4>
                 <TakeInput 
                     iconName="mail" 
-                    labelText="Enter Your Email"
+                    labelText="Your Email"
                     options={{
                         id: "user-email", 
                         type: 'email',
@@ -55,7 +55,7 @@ const SignIn = () => {
 
                 <TakeInput 
                     iconName="lock"  
-                    labelText="Enter Your Password"
+                    labelText="Your Password"
                     options={{
                         id: "password", 
                         type: 'password',
