@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
 const SignIn = () => {
 
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [ responseData, setResponseData ] = useState('')
 
-    // const history = useHistory();
+    const history = useHistory()
+
+    useEffect(() => {
+        const error = responseData.errors?.email || responseData.errors?.password
+        responseData.user ? history.push('/chat') : responseData ? alert(error) : null
+    }, [responseData])
 
     const handleChange = (e) => {
         const { id, value } = e.target
-        id === 'user-email' ? setEmail(value) : id ===  'password' ? setPassword(value) : null
+        id === 'user-email' ? setEmail(value) : id === 'password' ? setPassword(value) : null
     }
 
     const handleSubmit = (e) => {
@@ -24,8 +30,7 @@ const SignIn = () => {
             password
         }
 
-        const result = makePostRequest('http://127.0.0.1:4000/sign-in', data)
-        console.log('Result from signin', result)
+        makePostRequest('http://127.0.0.1:4000/sign-in', data, setResponseData)
 
         setEmail('')
         setPassword('')

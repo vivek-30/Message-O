@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
 const SignUp = () => {
@@ -10,8 +10,14 @@ const SignUp = () => {
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ contact, setContact ] = useState('')
+    const [ responseData, setResponseData ] = useState('')
 
-    // const history = useHistory();
+    const history = useHistory()
+
+    useEffect(() => {
+        const error = responseData.errors?.email || responseData.errors?.password
+        responseData.user ? history.push('/chat') : responseData ? alert(error) : null
+    }, [responseData])
 
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -28,8 +34,7 @@ const SignUp = () => {
             contact
         }
 
-        const result = makePostRequest('http://127.0.0.1:4000/sign-up', data)
-        console.log('Result from signup', result)
+        makePostRequest('http://127.0.0.1:4000/sign-up', data, setResponseData)
 
         setUser('')
         setPassword('')
