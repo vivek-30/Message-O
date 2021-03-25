@@ -26,16 +26,16 @@ const SignUp = () => {
     }
 
     const handleSubmit = (e) => {
-
+        
         e.preventDefault()
-        const data = {
+        const Data = {
             name: user,
             email,
             password,
             contact
         }
 
-        makePostRequest('http://127.0.0.1:4000/sign-up', data, setResponseData)
+        makePostRequest('http://127.0.0.1:4000/sign-up', Data, setResponseData)
 
         setUser('')
         setPassword('')
