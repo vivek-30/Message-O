@@ -1,0 +1,22 @@
+.authenticate {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    z-index: 1;
+    width: 85%;
+    box-shadow: 1px 1px 16px -6px rgba(0,1,1,0.6);
+    padding: 3rem;
+    margin: 2rem auto;
+    text-align: center;
+
+}
+
+.authenticate div {
+    margin: 2rem 0;
+}
+
+nav {
+    margin: 0.3rem;
+    border-radius: 45px;
+    padding: 0 3rem;
+    box-shadow: 3px 3px 6px 2px rgba(0,0,0,0.8);
+}
