@@ -1,16 +1,21 @@
 import React from 'react'
-import Banner from './components/Banner'
-import Form from './components/Form'
-import Toolbar from './components/Toolbar'
-import ChatWindow from './components/majorComponents/ChatWindow'
+import Chat from './Chat'
+import SignUp from './components/authentication/SignUp'
+import SignIn from './components/authentication/SignIn'
+import Protected from './components/hoc/Protected'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
   return (
     <div className="container" id="chat-app">
-      <Banner />
-      <ChatWindow />
-      <Toolbar />
-      <Form />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={SignUp} />
+          <Route path="/SignUp" component={SignUp} />
+          <Route path="/SignIn" component={SignIn} />
+          <Route path="/chat" component={Protected(Chat)} />
+        </Switch>
+      </Router>
     </div>
   )
 }
