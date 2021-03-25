@@ -7,8 +7,7 @@
     "start": "webpack serve",
     "server": "node server/server.js",
     "dev-server": "nodemon server/server.js",
-    "build": "webpack --config webpack.config.js",
-    "dev": "concurrently --kill-others \"npm run server\" \"npm start\""
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [
     "Chat APP",
@@ -19,18 +18,12 @@
   "author": "Vivek Singh",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "emoji-mart": "^3.0.1",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "materialize-css": "^1.0.0",
-    "mongoose": "^5.12.1",
+    "materialize-css": "^1.0.0-rc.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
     "socket.io": "^3.1.2",
     "socket.io-client": "^3.1.2"
   },
@@ -41,7 +34,6 @@
     "@babel/preset-react": "^7.12.13",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
-    "concurrently": "^6.0.0",
     "css-loader": "^5.1.1",
     "eslint": "^7.21.0",
     "eslint-loader": "^4.0.2",
@@ -54,10 +46,5 @@
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
-  },
-  "proxy": {
-    "/*": {
-      "target": "http://localhost:4000"
-    }
   }
 }
