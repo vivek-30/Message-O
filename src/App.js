@@ -2,6 +2,7 @@ import React from 'react'
 import Chat from './Chat'
 import SignUp from './components/authentication/SignUp'
 import SignIn from './components/authentication/SignIn'
+import Protected from './components/hoc/Protected'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
           <Route exact path="/" component={SignUp} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/SignIn" component={SignIn} />
-          <Route path="/chat" component={Chat} />
+          <Route path="/chat" component={Protected(Chat)} />
         </Switch>
       </Router>
     </div>
