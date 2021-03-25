@@ -3,22 +3,24 @@ require('dotenv').config();
 
 const Secret = process.env.SECRET;
 
-const verify = (req, res, next) => {
+const verify = (req, res) => {
 
     const token = req.cookies.jwt;
 
     if(!token) {
-        res.status(401).send('Unauthorized: No Token To Verify.');
+        res.status(401).json({ 
+            error: 'Unauthorized: No Token To Verify.' 
+        });
     }
     else {
         jwt.verify(token, Secret, (err, validToken) => {
             if(err) {
-                console.log('invalid token', err.message);
-                res.status(401).send('You are not an authenticated user');
+                // console.log('invalid token', err.message);
+                res.status(401).json({ error: 'You are not an authenticated user' });
             }
             else {
-                console.log('validToken - ', validToken);
-                next();
+                // console.log('validToken - ', validToken);
+                res.status(200).json({ success: 'Successfully Authenticated. Happy Chating' })
             }
         });
     }

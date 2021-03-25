@@ -24,8 +24,9 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/chat', verify, (req, res) => {
-    res.status(200).send('Successfully Authenticated. Happy Chating');
+router.get('/chat', verify, (req, res, next) => {
+    next();
+    // res.status(200).json({ success: 'Successfully Authenticated. Happy Chating' });
 });
 
 router.post('/sign-up', (req, res, next) => {
@@ -88,7 +89,7 @@ router.post('/sign-in', async (req, res) => {
 
 router.get('/logout', (req, res, next) => {
 
-    const token = res.cookies.jwt;
+    const token = req.cookies.jwt;
 
     if(token) {
         res.cookie('jwt', '', {
@@ -97,10 +98,10 @@ router.get('/logout', (req, res, next) => {
             sameSite: 'none',
             secure: true
         });
-        res.status(200).send('logged out successfully');
+        res.status(200).json({ success: 'logged out successfully' });
     }
     else {
-        res.status(404).send('No User Found');
+        res.status(404).json({ error: 'No User Found' });
     }
     
     next();
