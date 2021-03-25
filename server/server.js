@@ -1,19 +1,44 @@
-const express = require('express');
 const http = require('http');
+const cors = require('cors');
+const express = require('express');
+const socket = require('socket.io');
+const cookieParser = require('cookie-parser');
+const router = require('./router');
+
 const app = express();
 const server = http.createServer(app);
-const socket = require('socket.io');
-const cors = require('cors');
-const router = require('./router');
 const PORT = process.env.PORT || 4000;
 
 var users = {};
 var totalUsers = 0;
 
-// For CORS Behaviour
-app.use(cors());
+// Handle CORS Behaviour.
+app.use(cors(
+    {
+        origin: 'http://localhost:3000',
+        optionsSuccessStatus: 200,
+        credentials: true
+    }
+));
 
-// Handle requests
+// Parse JSON Data.
+app.use(express.json());
+
+// Set cookie parser.
+app.use(cookieParser());
+
+// Handle credentials and cookie for browser.
+app.use(function(req, res, next) {
+    res.header('Content-Type', 'application/json;charset=UTF-8');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
+
+// Handle Requests.
 app.use(router);
 
 const io = socket(server,{

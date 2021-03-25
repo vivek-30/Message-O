@@ -1,74 +1,76 @@
-body{
-    background-color: #b3e5fc;
+body,nav {
+    background: #FFAFBD;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffc3a0, #FFAFBD);
+    background: linear-gradient(to right, #ffc3a0, #FFAFBD);
 }
 
-#chat-window{
-    min-height:60vh;
-    background:#f1f1f1;
-    border:1px solid rgb(211, 207, 207);
+#chat-window {
+    min-height: 60vh;
+    background: #f1f1f1;
+    border: 1px solid rgb(211, 207, 207);
 }
 
-#chat-app .container{
-    margin:10px 0;
+#chat-app .container {
+    margin: 10px 0;
 }
 
-#display{
-    padding-top:6px;
-    height:55vh;
-    overflow:scroll;
+#display {
+    padding-top: 6px;
+    height: 55vh;
+    overflow: scroll;
 }
 
-#active-users{
-    margin-top:0.7rem;
+#active-users {
+    margin-top: 0.7rem;
 }
 
-#display div{
-    font-size:20px;
-    margin:8px 20px;
+#display div {
+    font-size: 20px;
+    margin: 8px 20px;
 }
 
-.chat-msg span{
-    border-radius:7px;
-    padding:6px;
-    background-color:#ecf1f7;
+.chat-msg span {
+    border-radius: 7px;
+    padding: 6px;
+    background-color: #ecf1f7;
 }
 
-#features{
-    display:flex;
-    justify-content:space-evenly;
+#features {
+    display: flex;
+    justify-content: space-evenly;
 }
 
-#features span{
-    padding:10px 3px;
-    cursor:pointer;
+#features span {
+    padding: 10px 3px;
+    cursor: pointer;
 }
 
-#features span:hover{
-    background-color:#424242;
+#features span:hover {
+    background-color: #424242;
 }
 
-.myright{
-    text-align:right;
+.myright {
+    text-align: right;
 }
 
-.myleft{
-    text-align:left;
+.myleft {
+    text-align: left;
 }
 
-#status-bar{
-    display:none;
+#status-bar {
+    display: none;
 }
 
-#status-bar em{
-    font-size:16px;
-    margin:3px 23px;
+#status-bar em {
+    font-size: 16px;
+    margin: 3px 23px;
 }
 
-#logo{
-    margin:0px 7px;
+#logo {
+    margin: 0px 7px;
 }
 
-#logo i{
-    position:relative;
-    top:8px;
+#logo i {
+    position: relative;
+    top: 8px;
 }
