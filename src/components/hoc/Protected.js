@@ -10,23 +10,35 @@ const Protected = (Component) => {
 
         useEffect(() => {
 
-            fetch('http://127.0.0.1:4000/chat')
-                .then((response) => {
-                         
-                    if(response.ok) {
-                        setIsLoading(false) 
-                    }
-                    else {
-                        console.log(response.statusText, 'please authenticate your self to use this service')
+            let isMounted = true
+
+            fetch('http://127.0.0.1:4000/chat', {
+                method: 'GET',
+                credentials: "include"
+            })
+            .then((response) => {
+                        
+                if(response.ok) {
+                    isMounted ? setIsLoading(false) : null
+                }
+                else {
+                    console.log(response.statusText, 'please authenticate your self to use this service')
+                    if(isMounted) {
                         setIsLoading(false)
                         setRedirect(true)
                     }
-                })
-                .catch((err) => {
-                    console.error(err)
-                    setIsLoading(false)
-                    setRedirect(true)
-                })
+                }
+            })
+            .catch((err) => {
+                console.error(err)
+                setIsLoading(false)
+                setRedirect(true)
+            })
+
+            return () => {
+                isMounted = false
+            }
+
         }, [])
 
         return (
