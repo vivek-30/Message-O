@@ -17,7 +17,7 @@ mongoose.connect(URI, {
     useCreateIndex: true
 });
 
-router.get('/',(req, res) => {
+router.get('/', (req, res) => {
     res.status(200).send({
         response: 'Server is successfully running ....',
         message: 'Please authenticate yourself to use this service.'
@@ -25,10 +25,7 @@ router.get('/',(req, res) => {
 });
 
 router.get('/chat', verify, (req, res) => {
-    res.status(200).send({
-        response: 'Server is successfully running....',
-        message: 'Happy Chating.'
-    });
+    res.status(200).send('Successfully Authenticated. Happy Chating');
 });
 
 router.post('/sign-up', (req, res, next) => {
@@ -87,6 +84,26 @@ router.post('/sign-in', async (req, res) => {
         // console.log('Error occurred while logging in a user', err);
         res.status(401).json({ errors });
     }
+});
+
+router.get('/logout', (req, res, next) => {
+
+    const token = res.cookies.jwt;
+
+    if(token) {
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            maxAge: 1,
+            sameSite: 'none',
+            secure: true
+        });
+        res.status(200).send('logged out successfully');
+    }
+    else {
+        res.status(404).send('No User Found');
+    }
+    
+    next();
 });
 
 module.exports = router;
