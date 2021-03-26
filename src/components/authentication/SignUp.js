@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
 import NavBar from './NavBar'
+import { setName } from '../main/Form'
 import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
@@ -17,7 +18,13 @@ const SignUp = () => {
 
     useEffect(() => {
         const error = responseData.errors?.email || responseData.errors?.password
-        responseData.user ? history.push('/chat') : responseData ? alert(error) : null
+        if(responseData.user) {
+            setName(responseData.user.name)
+            history.push('/chat')
+        }
+        else if(responseData) {
+            alert(error)
+        }
     }, [responseData])
 
     const handleChange = (e) => {
