@@ -42,6 +42,7 @@ const ChatWindow = () => {
             })
             setUser(user)
         })
+        
     }, [])
 
     useEffect(() => {
