@@ -55,7 +55,10 @@ router.post('/sign-up', (req, res, next) => {
             sameSite: 'none',
             secure: true
         });
-        res.status(201).json({ user: user._id });
+        res.status(201).json({ user: {
+            id: user._id,
+            name: user.name
+        } });
     }).catch((error) => {
         if(error) {
             // console.log('Error while adding a new user', error);
@@ -78,7 +81,10 @@ router.post('/sign-in', async (req, res) => {
             sameSite: 'none',
             secure: true
         });
-        res.status(200).json({ user: user._id });
+        res.status(200).json({ user: {
+            id: user._id,
+            name: user.name
+        } });
     }
     catch(err) {
         const errors = handleErrors(err);
