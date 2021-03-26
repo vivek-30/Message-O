@@ -3,19 +3,21 @@ import { socket } from '../../client/Chat'
 import { customAlert } from '../../client/helperFunctions'
 import TakeInput from './TakeInput'
 
+var user = ''
+
 export var displayEmoji = null
+export var setName = (name) => {
+    user = name
+}
 
 const Form = () => {
 
-   const [ user, setUser ] = useState('')
    const [ message, setMessage ] = useState('')
-   const [ isDisabled, setIsDisabled ] = useState(false)
-   const userRef = useRef(null)
    const messageRef = useRef(null)
 
     useEffect(() => {
-       // Make focus on username input field
-       userRef.current?.focus()
+       // Make focus on message input field
+       messageRef.current?.focus()
     }, [])
 
     const emitMessage = (message, user = '', type = 'message') => {
@@ -36,26 +38,21 @@ const Form = () => {
     }
 
     const handleChange = (e) => {
-        const { id, value } = e.target
-        id === 'user' ? setUser(value) : id ===  'message' ? setMessage(value) : null
+        setMessage(e.target.value)
 
         // let others know that you are typing a message.
-        isDisabled && message.trim() !== '' ? socket.emit('status', user) : null
+        user && message.trim() !== '' ? socket.emit('status', user) : null
     }
 
     const handleSubmit = (e) => { 
+
         e.preventDefault()
-        if(message.trim() === '' || user.trim() === ''){
+        if(message.trim() === ''){
             customAlert('Empty fields are not allowed')
             return
         }
 
-        if(!isDisabled){
-            setIsDisabled(true)
-        }
-
         emitMessage(message, user)
-        // clear input field for fresh message
         setMessage('')    
     }
 
@@ -65,24 +62,10 @@ const Form = () => {
 
     return (
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
-             <TakeInput 
-                iconName="person" 
-                labelText="Your Name"
-                iconColor="teal"
-                options={{
-                    id: "user", 
-                    type: 'text',
-                    handleChange,
-                    value: user,
-                    ref: userRef,
-                    disabled: isDisabled
-                }}
-            />
 
             <TakeInput 
                 iconName="chat" 
-                labelText="Your Message"
-                iconColor="teal"
+                labelText="Type Your Message"
                 options={{
                     id: "message", 
                     type: 'text',
@@ -92,7 +75,7 @@ const Form = () => {
                 }}
             />
 
-            <button type="submit" className="btn teal z-depth-2">
+            <button type="submit" className="btn blue darken-2 z-depth-2">
                 <span>Send</span>
                 <i className="material-icons right">send</i>
             </button>

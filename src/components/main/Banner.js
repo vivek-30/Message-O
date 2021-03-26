@@ -22,7 +22,7 @@ const Banner = () => {
 
     return (
         <div className="section center">
-            <Link to="/chat" target="_blank">
+            <Link to="/chat" target="_self">
                 <span className="flow-text teal-text">Chat App</span>
                 <span id="logo"><i className="material-icons teal-text">forum</i></span>
             </Link>
