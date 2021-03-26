@@ -20,6 +20,7 @@ const Emoji = () => {
         <span className="reactions">
             <Picker
             showPreview={false} 
+            recent={['']}
             showSkinTones={false}
             onSelect={(emoji) => {
                 setPicker(!picker)
