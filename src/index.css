@@ -74,3 +74,19 @@ body,nav {
     position: relative;
     top: 8px;
 }
+
+/* override materialize css styles */
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]) {
+    border-color: #3282b8 !important;
+    box-shadow: none !important;
+}
+
+.input-field input[type=text]:focus + label, 
+.input-field input[type=email]:focus + label,
+.input-field input[type=password]:focus + label,
+.input-field input[type=tel]:focus + label {
+    color: #1e7bb9 !important;
+}
