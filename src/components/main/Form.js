@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../client/Chat'
 import { customAlert } from '../../client/helperFunctions'
-import TakeInput from './TakeInput'
 
 var user = ''
 
@@ -62,21 +61,19 @@ const Form = () => {
 
     return (
         <form className="center section" id="chat-box" onSubmit={handleSubmit} >
-
-            <TakeInput 
-                iconName="chat" 
-                labelText="Type Your Message"
-                options={{
-                    id: "message", 
-                    type: 'text',
-                    handleChange,
-                    value: message,
-                    ref: messageRef
-                }}
+            
+            <input 
+                type="text" 
+                id="message-box"
+                value={message}
+                ref={messageRef} 
+                onChange={handleChange} 
+                autoComplete="off"
+                placeholder="Type Your Message ..."
+                required
             />
 
-            <button type="submit" className="btn blue darken-2 z-depth-2">
-                <span>Send</span>
+            <button type="submit" className="btn-floating blue darken-2">
                 <i className="material-icons right">send</i>
             </button>
         </form>

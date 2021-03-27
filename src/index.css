@@ -75,6 +75,16 @@ body,nav {
     top: 8px;
 }
 
+#message-box {
+    background-color: #f2f2f2;
+    text-align: center;
+    color: #333;
+    border-radius: 30px;
+    width: 66vw;
+    margin: 0.2rem 0.6rem;
+    border: 2px solid #f4b0b9 !important;
+}
+
 /* override materialize css styles */
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
