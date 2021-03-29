@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import 'emoji-mart/css/emoji-mart.css'
 import Emoji from '../emoji-picker/Emoji'
 import { useHistory } from 'react-router-dom'
-import { customAlert } from '../../client/helperFunctions'
+import { customAlert, setBackground } from '../../client/helperFunctions'
 
 const Toolbar = () => {
 
@@ -14,11 +14,16 @@ const Toolbar = () => {
     const handleFileInput = () => {
         var value = fileRef.current.files[0]
         var url = URL.createObjectURL(value)
-        var chatWindow = document.getElementById('chat-window')
-        chatWindow.style.background = `url(${url}) no-repeat center`
-        chatWindow.style.backgroundSize = 'cover'
-        // chatWindow.style.opacity = '0.7'
-        chatWindow.style.zIndex = -1
+        localStorage.setItem('bg-wallpaper', JSON.stringify(url))
+        setBackground(url)
+    }
+
+    const removeWallpaper = () => {
+        if(localStorage.getItem('bg-wallpaper') !== null) {
+            let chatWindow = document.getElementById('chat-window')
+            chatWindow.style.background = '#f2f2f2'
+            localStorage.removeItem('bg-wallpaper')
+        }
     }
 
     const Logout = () => {
@@ -49,7 +54,7 @@ const Toolbar = () => {
                 <span onClick={() => { setPicker(!picker) }}>
                     <i className="material-icons small blue-text text-darken-2">insert_emoticon</i>
                 </span>
-                <span><i className="material-icons small blue-text text-darken-2">more_horiz</i></span>
+                <span onClick={removeWallpaper}><i className="material-icons small blue-text text-darken-2">more_horiz</i></span>
             </div>
         </>
     )

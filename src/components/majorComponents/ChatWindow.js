@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../client/Chat'
 import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
+import { setBackground } from '../../client/helperFunctions'
 
 const ChatWindow = () => {
 
@@ -16,6 +17,8 @@ const ChatWindow = () => {
     const audioRef = useRef(null)
 
     useEffect(() => {
+
+        setBackground()
 
         socket.on('myMsg', (newData) => {
             setData(data => [ ...data, newData ])
@@ -48,7 +51,7 @@ const ChatWindow = () => {
     useEffect(() => {
         bottomScrollRef.current?.scrollIntoView({ behaviour: "smooth" })
     }, [data])
-    
+
     return (
         <div id="chat-window">
             <div id="display">
