@@ -85,6 +85,10 @@ body,nav {
     border: 2px solid #f4b0b9 !important;
 }
 
+#chat-box {
+    margin-top: 1.5rem;
+}
+
 /* override materialize css styles */
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),

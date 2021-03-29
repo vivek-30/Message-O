@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../client/Chat'
 import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
-import { setBackground } from '../../client/helperFunctions'
+import { setWallpaper } from '../../client/helperFunctions'
 
 const ChatWindow = () => {
 
@@ -18,7 +18,7 @@ const ChatWindow = () => {
 
     useEffect(() => {
 
-        setBackground()
+        setWallpaper()
 
         socket.on('myMsg', (newData) => {
             setData(data => [ ...data, newData ])
@@ -53,15 +53,17 @@ const ChatWindow = () => {
     }, [data])
 
     return (
-        <div id="chat-window">
-            <div id="display">
-                <Message data={data} />
-                <div ref={bottomScrollRef}></div>
+        <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }}>
+            <div id="chat-window">
+                <div id="display">
+                    <Message data={data} />
+                    <div ref={bottomScrollRef}></div>
+                </div>
+                <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
+                    <em>{user} is typing ...</em>
+                </div>
+                <audio src={chatTone} ref={audioRef} muted></audio>
             </div>
-            <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
-                <em>{user} is typing ...</em>
-            </div>
-            <audio src={chatTone} ref={audioRef} muted></audio>
         </div>
     )
 }

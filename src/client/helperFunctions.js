@@ -40,9 +40,10 @@ export const makePostRequest = (URL, Data, setResponseData) => {
     })
 }
 
-export const setBackground = (url = null) => {
+export const setWallpaper = (url = null) => {
 
     let chatWindow = document.getElementById('chat-window')
+    chatWindow.style.background = '#f2f2f2'
     let savedURL = localStorage.getItem('bg-wallpaper')
     let imageURL = url ? url : savedURL ? JSON.parse(savedURL) : null
     if(imageURL) {
@@ -51,7 +52,18 @@ export const setBackground = (url = null) => {
         // chatWindow.style.opacity = '0.7'
         chatWindow.style.zIndex = -1
     }
-    else {
+}
+
+export const removeWallpaper = () => {
+    if(localStorage.getItem('bg-wallpaper') !== null) {
+        let chatWindow = document.getElementById('chat-window')
         chatWindow.style.background = '#f2f2f2'
+        localStorage.removeItem('bg-wallpaper')
     }
+}
+
+export const handleFileInput = (image) => {
+    var url = URL.createObjectURL(image)
+    localStorage.setItem('bg-wallpaper', JSON.stringify(url))
+    setWallpaper(url)
 }
