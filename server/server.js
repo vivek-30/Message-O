@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 // Handle Requests.
 app.use(router);
 
-const io = socket(server,{
+const io = socket(server, {
     cors: {
       origin: "http://localhost:3000",
       credentials: true
@@ -54,33 +54,33 @@ io.on('connection',(socket) => {
     //increment totalUsers count when a new user joins
     totalUsers++;
 
-    io.emit('total-users',totalUsers);
+    io.emit('total-users', totalUsers);
 
-    socket.on('myMsg',(data) => {
+    socket.on('myMsg', (data) => {
         io.to(socket.id).emit('myMsg',data);
     });
 
-    socket.on('chat',(data) => {
+    socket.on('chat', (data) => {
         users[socket.id] = data.user;
         // io.sockets.emit('chat',data);
         socket.broadcast.emit('chat',data);
     });
 
-    socket.on('status',(user) => {
+    socket.on('status', (user) => {
         socket.broadcast.emit('status',user);
     });
 
-    socket.on('disconnect',() => {
+    socket.on('disconnect', () => {
         //decrement totalUsers count when a user leaves the chat
         totalUsers--;
-        socket.broadcast.emit('leave',{
-            user:users[socket.id],
+        socket.broadcast.emit('leave', {
+            user: users[socket.id],
             totalUsers
         });
         delete users[socket.id];
     });
 });
 
-server.listen(PORT,() => {
+server.listen(PORT, () => {
     console.log(`listenning at port ${PORT}`);
 });

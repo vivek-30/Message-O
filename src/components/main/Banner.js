@@ -8,16 +8,28 @@ const Banner = () => {
     const [ activeUsers, setActiveUsers ] = useState(1)
 
     useEffect(() => {
-        socket.on('total-users', (totalUsers) => {
-            setActiveUsers(totalUsers)
-        })
 
-        socket.on('leave', ({ totalUsers, user }) => {
-            setActiveUsers(totalUsers)
-            if(user) {
-                customAlert(`${user} Left The Chat`)
-            }
-        })
+        let isMounted = true
+
+        if(isMounted) {
+
+            socket.on('total-users', (totalUsers) => {
+                setActiveUsers(totalUsers)
+            })
+
+            socket.on('leave', ({ totalUsers, user }) => {
+                setActiveUsers(totalUsers)
+                if(user) {
+                    customAlert(`${user} Left The Chat`)
+                }
+            })
+
+        }
+
+        return () => {
+            isMounted = false
+        }
+
     }, [])
 
     return (
