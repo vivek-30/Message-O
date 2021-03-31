@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
 import NavBar from './NavBar'
@@ -15,8 +15,10 @@ const SignUp = () => {
     const [ responseData, setResponseData ] = useState('')
 
     const history = useHistory()
+    const inputRef = useRef()
 
     useEffect(() => {
+        inputRef.current?.focus()
         const error = responseData.errors?.email || responseData.errors?.password
         if(responseData.user) {
             setName(responseData.user.name)
@@ -61,6 +63,7 @@ const SignUp = () => {
                     options={{
                         id: "new-user", 
                         type: 'text',
+                        ref: inputRef,
                         handleChange,
                         value: user
                     }}
