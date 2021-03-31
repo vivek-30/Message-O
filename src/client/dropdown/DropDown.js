@@ -5,9 +5,9 @@ const DropDown = () => {
 
     return (
         <div id="drop-down">
-            <p>clear chat</p>
-            <p>Toggle Mode</p>
-            <p>Reset Background</p>
+            <p name="clear-chat">clear chat</p>
+            <p name="toggle-theme">Toggle Mode</p>
+            <p name="reset-bg">Reset Background</p>
         </div>
     )
 }
