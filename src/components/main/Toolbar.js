@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react'
 import 'emoji-mart/css/emoji-mart.css'
 import Emoji from '../emoji-picker/Emoji'
 import { useHistory } from 'react-router-dom'
-import { customAlert, removeWallpaper, handleFileInput } from '../../client/helperFunctions'
+import { customAlert, handleFileInput } from '../../client/helperFunctions'
 
-const Toolbar = () => {
+const Toolbar = ({ setOptions }) => {
 
     const [ picker, setPicker ] = useState(false)
-
+    
     const history = useHistory()
     const fileRef = useRef(null)
 
@@ -27,7 +27,7 @@ const Toolbar = () => {
 
     return (
         <>
-            { picker && (<Emoji />) }
+            { picker && <Emoji /> }
             <div className="grey darken-4" id="features">
                 <span onClick={() => { fileRef.current.click() }}>
                     <input type="file" accept="image/*" ref={fileRef} style={{ display: 'none' }} onChange={() => handleFileInput(fileRef.current.files[0])}/>
@@ -37,10 +37,12 @@ const Toolbar = () => {
                 <span onClick={Logout}>
                     <i className="material-icons small blue-text text-darken-2">home</i>
                 </span>
-                <span onClick={() => { setPicker(!picker) }}>
+                <span onClick={() => setPicker(!picker)}>
                     <i className="material-icons small blue-text text-darken-2">insert_emoticon</i>
                 </span>
-                <span onClick={removeWallpaper}><i className="material-icons small blue-text text-darken-2">more_horiz</i></span>
+                <span onClick={() => setOptions(prevOptions => !prevOptions)}>
+                    <i className="material-icons small blue-text text-darken-2">more_horiz</i>
+                </span>
             </div>
         </>
     )

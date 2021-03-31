@@ -3,11 +3,14 @@ import { socket } from '../../client/Chat'
 import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
 import { setWallpaper } from '../../client/helperFunctions'
+import DropDown from '../../client/dropdown/DropDown'
+import ToolBar from '../main/Toolbar'
 
 const ChatWindow = () => {
 
     const [ data, setData ] = useState([])
     const [ user, setUser ] = useState('')
+    const [ options, setOptions ] = useState(false)
     const [ CSS, setCSS ] = useState({
         backgroundColor: '#c2c2c2', 
         padding: '8px 20px'
@@ -32,7 +35,7 @@ const ChatWindow = () => {
             setUser('')
             setData(data => [ ...data, newData ])
 
-            if(audioRef){
+            if(audioRef.current){
                 audioRef.current.muted = false
                 audioRef.current?.play()
             }
@@ -53,18 +56,22 @@ const ChatWindow = () => {
     }, [data])
 
     return (
-        <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }}>
-            <div id="chat-window">
-                <div id="display">
-                    <Message data={data} />
-                    <div ref={bottomScrollRef}></div>
+        <>
+            <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
+                <div id="chat-window">
+                    <div id="display">
+                        <Message data={data} />
+                        <div ref={bottomScrollRef}></div>
+                    </div>
+                    <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
+                        <em>{user} is typing ...</em>
+                    </div>
+                    <audio src={chatTone} ref={audioRef} muted></audio>
                 </div>
-                <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
-                    <em>{user} is typing ...</em>
-                </div>
-                <audio src={chatTone} ref={audioRef} muted></audio>
+                { options && <DropDown /> }
             </div>
-        </div>
+            <ToolBar setData={setData} setOptions={setOptions} />
+        </>
     )
 }
 
