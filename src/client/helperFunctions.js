@@ -62,6 +62,9 @@ export const removeWallpaper = () => {
         chatWindow.style.background = '#f2f2f2'
         localStorage.removeItem('bg-wallpaper')
     }
+    else {
+        customAlert('window is already in its default state')
+    }
 }
 
 export const handleFileInput = (image) => {

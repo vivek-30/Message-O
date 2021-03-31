@@ -21,33 +21,42 @@ const ChatWindow = () => {
 
     useEffect(() => {
 
-        setWallpaper()
+        let isMounted = true
+    
+        if(isMounted) {
 
-        socket.on('myMsg', (newData) => {
-            setData(data => [ ...data, newData ])
-        })
+            setWallpaper()
 
-        socket.on('chat', (newData) => {
-            setCSS({
-                ...CSS, 
-                display: 'none'
+            socket.on('myMsg', (newData) => {
+                setData(data => [ ...data, newData ])
             })
-            setUser('')
-            setData(data => [ ...data, newData ])
 
-            if(audioRef.current){
-                audioRef.current.muted = false
-                audioRef.current?.play()
-            }
-        })
+            socket.on('chat', (newData) => {
+                setCSS({
+                    ...CSS, 
+                    display: 'none'
+                })
+                setUser('')
+                setData(data => [ ...data, newData ])
 
-        socket.on('status', (user) => {
-            setCSS({
-                ...CSS,
-                display: 'block'
+                if(audioRef.current){
+                    audioRef.current.muted = false
+                    audioRef.current?.play()
+                }
             })
-            setUser(user)
-        })
+
+            socket.on('status', (user) => {
+                setCSS({
+                    ...CSS,
+                    display: 'block'
+                })
+                setUser(user)
+            })
+        }
+
+        return () => {
+            isMounted = false
+        }
         
     }, [])
 
@@ -68,9 +77,9 @@ const ChatWindow = () => {
                     </div>
                     <audio src={chatTone} ref={audioRef} muted></audio>
                 </div>
-                { options && <DropDown /> }
+                { options && <DropDown setData={setData} /> }
             </div>
-            <ToolBar setData={setData} setOptions={setOptions} />
+            <ToolBar setOptions={setOptions} />
         </>
     )
 }

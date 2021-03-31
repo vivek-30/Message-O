@@ -63,7 +63,7 @@ body,nav {
 
 #status-bar {
     display: none;
-    z-index: 5;
+    /* z-index: 5; */
 }
 
 #status-bar em {
@@ -90,10 +90,6 @@ body,nav {
     border: 2px solid #f4b0b9 !important;
 }
 
-::placeholder { 
-    color: rgb(124, 124, 124);
-    opacity: 1; /* Firefox */
-}
 
 #chat-box {
     margin-top: 1.5rem;
@@ -102,6 +98,11 @@ body,nav {
 #outer-chat-box {
     min-height: 60vh;
     position: relative
+}
+
+::placeholder { 
+    color: rgb(124, 124, 124);
+    opacity: 1; /* Firefox */
 }
 
 /* override materialize css styles */

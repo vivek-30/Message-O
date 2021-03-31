@@ -48,7 +48,7 @@ const io = socket(server, {
     }
 });
 
-io.on('connection',(socket) => {
+io.on('connection', (socket) => {
     // console.log('New user connected with ID : ',socket.id);
 
     //increment totalUsers count when a new user joins
@@ -57,21 +57,21 @@ io.on('connection',(socket) => {
     io.emit('total-users', totalUsers);
 
     socket.on('myMsg', (data) => {
-        io.to(socket.id).emit('myMsg',data);
+        io.to(socket.id).emit('myMsg', data);
     });
 
     socket.on('chat', (data) => {
         users[socket.id] = data.user;
-        // io.sockets.emit('chat',data);
-        socket.broadcast.emit('chat',data);
+        // io.sockets.emit('chat', data);
+        socket.broadcast.emit('chat', data);
     });
 
     socket.on('status', (user) => {
-        socket.broadcast.emit('status',user);
+        socket.broadcast.emit('status', user);
     });
 
     socket.on('disconnect', () => {
-        //decrement totalUsers count when a user leaves the chat
+        // Decrement totalUsers count when a user leaves the chat.
         totalUsers--;
         socket.broadcast.emit('leave', {
             user: users[socket.id],
