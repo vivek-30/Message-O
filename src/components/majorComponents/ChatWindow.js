@@ -6,7 +6,7 @@ import { setWallpaper } from '../../client/helperFunctions'
 import DropDown from '../../client/dropdown/DropDown'
 import ToolBar from '../main/Toolbar'
 
-const ChatWindow = () => {
+const ChatWindow = ({ theme, setTheme }) => {
 
     const [ data, setData ] = useState([])
     const [ user, setUser ] = useState('')
@@ -69,7 +69,7 @@ const ChatWindow = () => {
             <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
                 <div id="chat-window">
                     <div id="display">
-                        <Message data={data} />
+                        <Message data={data} theme={theme} />
                         <div ref={bottomScrollRef}></div>
                     </div>
                     <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
@@ -77,9 +77,9 @@ const ChatWindow = () => {
                     </div>
                     <audio src={chatTone} ref={audioRef} muted></audio>
                 </div>
-                { options && <DropDown setData={setData} /> }
+                { options && <DropDown theme={theme} setOptions={setOptions} setData={setData} setTheme={setTheme} /> }
             </div>
-            <ToolBar setOptions={setOptions} />
+            <ToolBar setOptions={setOptions} theme={theme} />
         </>
     )
 }

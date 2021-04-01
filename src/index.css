@@ -87,9 +87,12 @@ body,nav {
     border-radius: 30px;
     width: 64vw;
     margin: 0.2rem 0.6rem;
-    border: 2px solid #f4b0b9 !important;
+    border: 2px solid #f4b0b9;
 }
 
+#features span i {
+    color: #1976d2;
+}
 
 #chat-box {
     margin-top: 1.5rem;
@@ -110,7 +113,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
 input[type=tel]:not(.browser-default):focus:not([readonly]) {
-    border-color: #3282b8 !important;
+    border-color: #3282b8;
     box-shadow: none !important;
 }
 
