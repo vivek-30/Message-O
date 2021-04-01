@@ -1,10 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Banner from './components/main/Banner'
 import Form from './components/main/Form'
 import ChatWindow from './components/majorComponents/ChatWindow'
 
 const Chat = () => {
-    const [ theme, setTheme ] = useState('light')
+
+    let currentTheme = localStorage.getItem('theme') || 'light'
+
+    const [ theme, setTheme ] = useState(currentTheme)
+
+    useEffect(() => {
+        var Body = document.body
+        console.log(Body)
+        if(theme === 'dark') {
+            Body.classList.add('dark-bg')
+        }
+        else {
+            Body.classList.remove('dark-bg')
+        }
+
+        return () => {
+            Body.classList.remove('dark-bg')
+        }
+        
+    }, [theme])
+
     return (
         <>
             <Banner theme={theme} />
