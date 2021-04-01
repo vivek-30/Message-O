@@ -4,7 +4,7 @@ import Emoji from '../emoji-picker/Emoji'
 import { useHistory } from 'react-router-dom'
 import { customAlert, handleFileInput } from '../../client/helperFunctions'
 
-const Toolbar = ({ setOptions }) => {
+const Toolbar = ({ setOptions, theme }) => {
 
     const [ picker, setPicker ] = useState(false)
     
@@ -27,7 +27,7 @@ const Toolbar = ({ setOptions }) => {
 
     return (
         <>
-            { picker && <Emoji /> }
+            { picker && <Emoji theme={theme} /> }
             <div className="grey darken-4" id="features">
                 <span name="bg-wallpaper" onClick={() => { fileRef.current.click() }}>
                     <input 
@@ -37,19 +37,19 @@ const Toolbar = ({ setOptions }) => {
                         style={{ display: 'none' }} 
                         onChange={() => handleFileInput(fileRef.current.files[0])}
                     />
-                    <i className="material-icons small blue-text text-darken-2">wallpaper</i>
+                    <i className="material-icons small">wallpaper</i>
                 </span>
                 <span name="video-call">
-                    <i className="material-icons small blue-text text-darken-2">video_call</i>
+                    <i className="material-icons small">video_call</i>
                 </span>
                 <span name="logout" onClick={Logout}>
-                    <i className="material-icons small blue-text text-darken-2">home</i>
+                    <i className="material-icons small">home</i>
                 </span>
                 <span name="emoji-picker" onClick={() => setPicker(!picker)}>
-                    <i className="material-icons small blue-text text-darken-2">insert_emoticon</i>
+                    <i className="material-icons small">insert_emoticon</i>
                 </span>
                 <span name="more" onClick={() => setOptions(prevOptions => !prevOptions)}>
-                    <i className="material-icons small blue-text text-darken-2">more_horiz</i>
+                    <i className="material-icons small">more_horiz</i>
                 </span>
             </div>
         </>

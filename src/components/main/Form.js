@@ -9,7 +9,7 @@ export var setName = (name) => {
     user = name
 }
 
-const Form = () => {
+const Form = ({ theme }) => {
 
    const [ message, setMessage ] = useState('')
    const messageRef = useRef(null)
@@ -47,7 +47,7 @@ const Form = () => {
 
         e.preventDefault()
         if(message.trim() === ''){
-            customAlert('Empty fields are not allowed')
+            customAlert('Empty fields are not allowed', theme)
             return
         }
 
@@ -73,7 +73,7 @@ const Form = () => {
                 required
             />
 
-            <button type="submit" className="btn-floating blue darken-2">
+            <button id="send-msg-btn" type="submit" className="btn-floating blue darken-2">
                 <i className="material-icons right">send</i>
             </button>
         </form>
