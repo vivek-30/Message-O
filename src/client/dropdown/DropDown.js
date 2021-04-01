@@ -1,24 +1,14 @@
 import React from 'react'
 import { removeWallpaper } from '../helperFunctions'
-import toggleTheme from '../darkMode/toggleTheme'
 import './dropDown.css'
-
-const lightDropDown = {
-    border: '1px solid #f3f8f9',
-    backgroundColor: '#f2f2f2',
-    boxShadow: '2px 2px 2px #ccc'
-}
-
-const darkDropDown = {
-    border: '1px solid #46b5d1',
-    backgroundColor: '#424242',
-    color: '#ccc',
-    boxShadow: '2px 2px 2px #222222'
-}
 
 const DropDown = ({ theme, setOptions, setData, setTheme }) => {
 
-    const currentTheme = theme === 'light' ? lightDropDown : darkDropDown
+    const toggleTheme = () => {
+        let newTheme = theme === 'light' ? 'dark' : 'light'
+        localStorage.setItem('theme', newTheme)
+        setTheme(newTheme)
+    }
 
     const handleChoice = (e) => {
         let name = e.target.getAttribute('name')
@@ -27,9 +17,8 @@ const DropDown = ({ theme, setOptions, setData, setTheme }) => {
                 setData([])
                 break
             }
-            case 'toggle-theme': {
-                toggleTheme()
-                setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light')
+            case 'toggle-theme': {  
+                toggleTheme()             
                 break
             }
             case 'reset-bg': {
@@ -44,7 +33,7 @@ const DropDown = ({ theme, setOptions, setData, setTheme }) => {
     }
 
     return (
-        <div id="drop-down" style={{ ...currentTheme }}>
+        <div id="drop-down" className={`${theme === 'dark' ? 'dark-drop-down' : ''}`}>
             <p name="clear-chat" onClick={handleChoice}>clear chat</p>
             <p name="toggle-theme" onClick={handleChoice}>Toggle Mode</p>
             <p name="reset-bg" onClick={handleChoice}>Reset Background</p>
