@@ -70,11 +70,12 @@ const Form = ({ theme }) => {
                 onChange={handleChange} 
                 autoComplete="off"
                 placeholder="Type Your Message ..."
+                className={theme === 'dark' ? 'dark-message-box' : ''}
                 required
             />
 
-            <button id="send-msg-btn" type="submit" className="btn-floating blue darken-2">
-                <i className="material-icons right">send</i>
+            <button id="send-msg-btn" type="submit" className={`btn-floating blue darken-2 ${theme === 'dark' ? 'dark-send-btn' : ''}`}>
+                <i className={`material-icons ${theme === 'dark' ? 'dark-icon' : ''}`}>send</i>
             </button>
         </form>
     )

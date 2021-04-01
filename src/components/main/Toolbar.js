@@ -25,10 +25,12 @@ const Toolbar = ({ setOptions, theme }) => {
         })
     }
 
+    const iconStyle = theme === 'dark' ? 'dark-icon' : ''
+
     return (
         <>
             { picker && <Emoji theme={theme} /> }
-            <div className="grey darken-4" id="features">
+            <div className={`grey darken-4 ${theme === 'dark' ? 'dark-features' : ''}`} id="features">
                 <span name="bg-wallpaper" onClick={() => { fileRef.current.click() }}>
                     <input 
                         type="file" 
@@ -37,19 +39,19 @@ const Toolbar = ({ setOptions, theme }) => {
                         style={{ display: 'none' }} 
                         onChange={() => handleFileInput(fileRef.current.files[0])}
                     />
-                    <i className="material-icons small">wallpaper</i>
+                    <i className={`material-icons small ${iconStyle}`}>wallpaper</i>
                 </span>
                 <span name="video-call">
-                    <i className="material-icons small">video_call</i>
+                    <i className={`material-icons small ${iconStyle}`}>video_call</i>
                 </span>
                 <span name="logout" onClick={Logout}>
-                    <i className="material-icons small">home</i>
+                    <i className={`material-icons small ${iconStyle}`}>home</i>
                 </span>
                 <span name="emoji-picker" onClick={() => setPicker(!picker)}>
-                    <i className="material-icons small">insert_emoticon</i>
+                    <i className={`material-icons small ${iconStyle}`}>insert_emoticon</i>
                 </span>
                 <span name="more" onClick={() => setOptions(prevOptions => !prevOptions)}>
-                    <i className="material-icons small">more_horiz</i>
+                    <i className={`material-icons small ${iconStyle}`}>more_horiz</i>
                 </span>
             </div>
         </>
