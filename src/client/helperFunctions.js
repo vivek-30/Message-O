@@ -1,12 +1,13 @@
 import M from 'materialize-css'
 
-export const customAlert = (message) => {
+export const customAlert = (message, theme = 'light') => {
+    const styleClasses = theme === 'light' ? 'white black-text' : 'grey darken-3 white-text'
     M.toast({
         html: message,
         inDuration: 800,
         outDuration: 800,
         displayLength: 2000,
-        classes: 'rounded white black-text'
+        classes: `rounded ${styleClasses}`
     })
 }
 
@@ -56,14 +57,14 @@ export const setWallpaper = (url = null) => {
     }
 }
 
-export const removeWallpaper = () => {
+export const removeWallpaper = (theme) => {
     if(localStorage.getItem('bg-wallpaper') !== null) {
         let chatWindow = document.getElementById('chat-window')
         chatWindow.style.background = '#f2f2f2'
         localStorage.removeItem('bg-wallpaper')
     }
     else {
-        customAlert('window is already in its default state')
+        customAlert('window is already in its default state', theme)
     }
 }
 
