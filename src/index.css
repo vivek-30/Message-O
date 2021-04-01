@@ -33,7 +33,7 @@ body,nav {
     margin: 8px 20px;
 }
 
-.chat-msg span {
+.chat-msg span.msg {
     border-radius: 7px;
     padding: 6px;
     background-color: #ecf1f7;

@@ -67,7 +67,7 @@ const ChatWindow = ({ theme, setTheme }) => {
     return (
         <>
             <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
-                <div id="chat-window">
+                <div id="chat-window" className={theme === 'dark' ? 'dark-window' : ''}>
                     <div id="display">
                         <Message data={data} theme={theme} />
                         <div ref={bottomScrollRef}></div>
