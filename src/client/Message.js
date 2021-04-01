@@ -8,8 +8,8 @@ const Message = ({ data, theme }) => {
                 <div key={index} className={`${theme === 'light' ? 'chat-msg' : 'dark-msg'} ${alignment}`} >
                     {
                     type === 'message' ? 
-                    <span style={{ backgroundColor: theme === 'light' ? '#ecf1f7' : '#46b5d1' }}>{user} : {message}</span> 
-                    : <Emoji emoji={message} size={40} style={{ backgroundColor: theme === 'light' ? '#ecf1f7' : '#46b5d1' }} />
+                    <span className="msg">{user} : {message}</span> 
+                    : <Emoji emoji={message} size={40} />
                     }
                 </div>
             )
