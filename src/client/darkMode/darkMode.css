@@ -1,0 +1,53 @@
+:root {
+    /* --golden: #f2a365; */
+    --darkBlack: #121212;
+    --lightBlack: #222222;
+    --lightBlue: #46b5d1;
+}
+
+.dark-bg {
+    background: var(--darkBlack) !important;
+}
+
+.dark-window {
+    background-color: var(--lightBlack) !important;
+    border: 1px solid var(--lightBlue) !important;
+} 
+
+.dark-message-box {
+    background-color: var(--lightBlack) !important;
+    border: 2px solid var(--lightBlue) !important;
+    color: #ccc !important;
+}
+
+.dark-drop-down {
+    background-color: var(--darkBlack) !important;
+    border: 1px solid var(--lightBlack) !important;
+    color: var(--lightBlue) !important;
+}
+
+.dark-drop-down p:hover {
+    background-color: var(--lightBlack) !important;
+}
+
+.dark-icon, .dark-banner, .dark-active {
+    color: var(--lightBlue) !important;
+}
+
+.dark-features span:hover {
+    background-color: var(--darkBlack) !important;
+}
+
+#send-msg-btn i.dark-icon {
+    background-color: var(--lightBlack) !important;
+}
+
+.dark-msg span {
+    border-radius: 7px;
+    padding: 6px;
+    background-color: var(--lightBlue) !important;
+}
+
+/* .dark-features {
+    border: 1px solid var(--golden);
+} */
