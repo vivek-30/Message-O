@@ -11,7 +11,6 @@ const Chat = () => {
 
     useEffect(() => {
         var Body = document.body
-        console.log(Body)
         if(theme === 'dark') {
             Body.classList.add('dark-bg')
         }
