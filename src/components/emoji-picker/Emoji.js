@@ -7,12 +7,23 @@ const pickerStyle = {
     top: '8rem',
     right: '3rem',
     width: '18rem',  
-    position: 'absolute',
-    backgroundColor: '#eeeeee',
+    position: 'absolute'
+}
+
+const lightThemePicker = {
+    backgroundColor: '#eee',
     boxShadow: '2px 2px 8px 1px rgba(0,0,1,0.3)'
 }
 
-const Emoji = () => {
+const darkThemePicker = {
+    border: '1px solid #46b5d1',
+    backgroundColor: '#424242',
+    boxShadow: '2px 2px 5px 1px rgba(0,0,0,0.3)'
+}
+
+const Emoji = ({ theme = 'light' }) => {
+
+    let currentTheme = theme === 'light' ? lightThemePicker : darkThemePicker
 
     const [ picker, setPicker ] = useState(true)
 
@@ -27,7 +38,7 @@ const Emoji = () => {
                 displayEmoji(emoji)
             }}
             emojiSize={30} 
-            style={{ display: picker ? 'block' : 'none', ...pickerStyle }}
+            style={{ display: picker ? 'block' : 'none', ...pickerStyle, ...currentTheme }}
             />
         </span>
     )
