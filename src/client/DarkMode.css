@@ -22,10 +22,6 @@
     color: var(--lightGrey) !important;
 }
 
-.dark-drop-down p:hover {
-    background-color: var(--lightBlack) !important;
-}
-
 .dark-icon, .dark-banner, .dark-active {
     color: var(--lightBlue) !important;
 }
