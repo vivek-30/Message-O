@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../database/model');
 require('dotenv').config();
 
 const Secret = process.env.SECRET;
@@ -20,7 +21,17 @@ const verify = (req, res) => {
             }
             else {
                 // console.log('validToken - ', validToken);
-                res.status(200).json({ success: 'Successfully Authenticated. Happy Chating' })
+                User.findById(validToken.id).then(({ name }) => {
+                    res.status(200).json({ 
+                        success: 'Successfully Authenticated. Happy Chating',
+                        name
+                    });
+                })
+                .catch((error) => {
+                    res.status(501).json({
+                        error
+                    });
+                })
             }
         });
     }

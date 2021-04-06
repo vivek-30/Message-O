@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
+import { setName } from '../main/Form'
 
 const Protected = (Component) => {
     
@@ -28,6 +29,10 @@ const Protected = (Component) => {
                         setRedirect(true)
                     }
                 }
+                return response.json()
+            })
+            .then((data) => {
+                data.error ? console.log('error in verifying user', data.error) : data.success && data.name ? setName(data.name) : null
             })
             .catch((err) => {
                 console.error(err)

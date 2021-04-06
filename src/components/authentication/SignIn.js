@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import TakeInput from '../main/TakeInput'
 import { makePostRequest } from '../../client/helperFunctions'
 import NavBar from './NavBar'
-import { setName } from '../main/Form'
 import { useHistory } from 'react-router-dom'
 import './authenticate.css'
 
@@ -18,13 +17,7 @@ const SignIn = () => {
     useEffect(() => {
         inputRef.current?.focus()
         const error = responseData.errors?.email || responseData.errors?.password
-        if(responseData.user) {
-            setName(responseData.user.name)
-            history.push('/chat')
-        }
-        else if(responseData) {
-            alert(error)
-        }
+        responseData.user ? history.push('/chat') : responseData ? alert(error) : null
     }, [responseData])
 
     const handleChange = (e) => {
