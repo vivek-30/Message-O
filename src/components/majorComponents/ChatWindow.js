@@ -28,6 +28,7 @@ const ChatWindow = ({ theme, setTheme }) => {
             setWallpaper()
 
             socket.on('myMsg', (newData) => {
+                newData['user'] = 'you'
                 setData(data => [ ...data, newData ])
             })
 
