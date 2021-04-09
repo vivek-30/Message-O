@@ -73,12 +73,29 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         // Decrement totalUsers count when a user leaves the chat.
         totalUsers--;
+        socket.broadcast.emit('call-ended'); // for video call
         socket.broadcast.emit('leave', {
             user: users[socket.id],
             totalUsers
         });
         delete users[socket.id];
     });
+
+    // video-conference stuff
+    socket.emit('me', socket.id);
+
+    socket.on('call-user', ({ name, userToCall, signalData, from }) => {
+        io.to(userToCall).emit('call-user', {
+            name,
+            from,
+            signal: signalData
+        });
+    });
+
+    socket.on('answer-call', ({ signal, to }) => {
+        io.to(to).emit('call-accepted', signal);
+    });
+    
 });
 
 server.listen(PORT, () => {
