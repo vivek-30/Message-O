@@ -6,17 +6,17 @@ import Peer from 'simple-peer'
 
 const VideoCall = () => {
 
-	const [name, setName] = useState('')
-	const [myID, setMyID] = useState(null)
-	const [caller, setCaller] = useState('')
-	const [stream, setStream] = useState(null)
-	const [userID, setUserID] = useState(null)
-	const [callEnded, setCallEnded] = useState(false)
-	const [callerSignal, setCallerSignal] = useState()
-	const [callAccepted, setCallAccepted] = useState(false)
-	const [receivingCall, setReceivingCall] = useState(false)
+	const [ name, setName ] = useState('')
+	const [ myID, setMyID ] = useState(null)
+	const [ caller, setCaller ] = useState('')
+	const [ stream, setStream ] = useState(null)
+	const [ userID, setUserID ] = useState(null)
+	const [ callEnded, setCallEnded ] = useState(false)
+	const [ callerSignal, setCallerSignal ] = useState(null)
+	const [ callAccepted, setCallAccepted ] = useState(false)
+	const [ receivingCall, setReceivingCall ] = useState(false)
 
-	const connectionRef = useRef()
+	const connectionRef = useRef(null)
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
 
@@ -26,25 +26,23 @@ const VideoCall = () => {
 			audio: true,
 			video: true
 		})
-			.then((stream) => {
-				setStream(stream)
-			})
-			.catch((err) => {
-				console.log('Error in setting video call', err)
-			})
+		.then((stream) => {
+			setStream(stream)
+		})
+		.catch((err) => {
+			console.log('Error in setting video call', err)
+		})
 
 		socket.on('me', (id) => {
 			setMyID(id)
 		})
 
-		socket.on("callUser", ({ name, from, signal }) => {
+		socket.on('call-user', ({ name, from, signal }) => {
 			setReceivingCall(true)
 			setName(name)
 			setCaller(from)
 			setCallerSignal(signal)
 		})
-
-
 
 	}, [])
 
@@ -65,22 +63,20 @@ const VideoCall = () => {
 			stream: stream
 		})
 
-		peer.on("signal", (data) => {
-			socket.emit("callUser", {
-				userToCall: id,
+		peer.on('signal', (data) => {
+			socket.emit('call-user', {
+				userToCall: userID,
 				signalData: data,
-				from: me,
-				name: name
+				from: myID,
+				name
 			})
 		})
 
-		peer.on("stream", (stream) => {
-
-			userVideo.current.srcObject = stream
-
+		peer.on('stream', (stream) => {
+			userVideoRef.current.srcObject = stream
 		})
 
-		socket.on("callAccepted", (signal) => {
+		socket.on('call-accepted', (signal) => {
 			setCallAccepted(true)
 			peer.signal(signal)
 		})
@@ -89,17 +85,21 @@ const VideoCall = () => {
 	}
 
 	const answerCall = () => {
+
 		setCallAccepted(true)
+
 		const peer = new Peer({
 			initiator: false,
 			trickle: false,
 			stream: stream
 		})
-		peer.on("signal", (data) => {
-			socket.emit("answerCall", { signal: data, to: caller })
+
+		peer.on('signal', (data) => {
+			socket.emit('answer-call', { signal: data, to: caller })
 		})
-		peer.on("stream", (stream) => {
-			userVideo.current.srcObject = stream
+
+		peer.on('stream', (stream) => {
+			userVideoRef.current.srcObject = stream
 		})
 
 		peer.signal(callerSignal)
@@ -115,10 +115,11 @@ const VideoCall = () => {
 		<div className="container section">
 			<div id="video-container">
 				<div className="video">
-					{stream && <video ref={myVideoRef} autoPlay playsInline muted />}
+					{ stream && <video ref={myVideoRef} autoPlay playsInline muted /> }
 				</div>
 				<div className="video">
-					{callAccepted && !callEnded ? <video ref={userVideoRef} autoPlay playsInline /> : null}
+					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} autoPlay playsInline /> )
+					 : null }
 				</div>
 			</div>
 			<div className="myId">
@@ -154,24 +155,24 @@ const VideoCall = () => {
 				/>
 
 				<div className="call-button">
-					{callAccepted && !callEnded ? (
+					{ callAccepted && !callEnded ? (
 						<button onClick={endCall}>
 							End Call
-						</button>)
+						</button> )
 						: (
 							<button onClick={callUser}>
 								<i className="material-icons">call</i>
 							</button>
-						)}
+						) }
 					{idToCall}
 				</div>
 			</div>
 			<div>
-				{receivingCall && !callAccepted ? (
+				{ receivingCall && !callAccepted ? (
 					<div className="caller">
 						<h1 >{name} is calling...</h1>
 						<button onClick={answerCall}>Anwer</button>
-					</div>) : null}
+					</div> ) : null }
 			</div>
 		</div>
 	)

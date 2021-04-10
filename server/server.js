@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
         delete users[socket.id];
     });
 
-    // video-conference stuff
+    // Video-conference stuff
     socket.emit('me', socket.id);
 
     socket.on('call-user', ({ name, userToCall, signalData, from }) => {
@@ -95,9 +95,8 @@ io.on('connection', (socket) => {
     socket.on('answer-call', ({ signal, to }) => {
         io.to(to).emit('call-accepted', signal);
     });
-    
 });
 
 server.listen(PORT, () => {
-    console.log(`listenning at port ${PORT}`);
+    console.log(`Listening at port ${PORT}`);
 });
