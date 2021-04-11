@@ -40,9 +40,9 @@
 
 .dark-drop-down {
     border: 1px solid var(--lightBlue) !important;
-    background-color: var(--darkGrey) !important;
+    background: var(--lightBlack) !important;
     color: var(--lightGrey) !important;
-    box-shadow: 2px 2px 2px var(--lightBlack) !important;
+    box-shadow: 5px 5px 5px #151515, -5px -5px 5px #2f2f2f !important;
 }
 
 .dark-msg span.msg {
