@@ -49,19 +49,19 @@ const io = socket(server, {
 });
 
 io.on('connection', (socket) => {
-    // console.log('New user connected with ID : ',socket.id);
+    // console.log('New user connected with ID :', socket.id);
 
-    //increment totalUsers count when a new user joins
+    const { id: ID } = socket; // grab id as ID from socket object
     totalUsers++;
 
     io.emit('total-users', totalUsers);
 
     socket.on('myMsg', (data) => {
-        io.to(socket.id).emit('myMsg', data);
+        io.to(ID).emit('myMsg', data);
     });
 
     socket.on('chat', (data) => {
-        users[socket.id] = data.user;
+        users[ID] = data.user;
         // io.sockets.emit('chat', data);
         socket.broadcast.emit('chat', data);
     });
@@ -71,19 +71,18 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        // Decrement totalUsers count when a user leaves the chat.
         totalUsers--;
         socket.broadcast.emit('call-ended'); // for video call
         socket.broadcast.emit('leave', {
-            user: users[socket.id],
+            user: users[ID],
             totalUsers
         });
-        delete users[socket.id];
+        delete users[ID];
     });
 
     // Video-conference stuff
-    socket.emit('me', socket.id);
-
+    io.to(ID).emit('myID', ID);
+    
     socket.on('call-user', ({ name, userToCall, signalData, from }) => {
         io.to(userToCall).emit('call-user', {
             name,

@@ -20,22 +20,21 @@ const VideoCall = () => {
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
 
-	useEffect(() => {
+	useEffect(() => {	
 
 		navigator.mediaDevices.getUserMedia({
-			audio: true,
-			video: true
+			video: true,
+			audio: true
 		})
 		.then((stream) => {
 			setStream(stream)
+			myVideoRef.current.srcObject = stream
 		})
 		.catch((err) => {
 			console.log('Error in setting video call', err)
 		})
 
-		socket.on('me', (id) => {
-			setMyID(id)
-		})
+		socket.on('myID', (ID) => setMyID(ID))
 
 		socket.on('call-user', ({ name, from, signal }) => {
 			setReceivingCall(true)
@@ -52,8 +51,9 @@ const VideoCall = () => {
 	}
 
 	const callUser = () => {
-		if (!userID) {
-			alert('can not call please fill a id to call')
+
+		if(!userID) {
+			alert('Can\'t make a call. Please fill an ID first')
 			return
 		}
 
@@ -68,7 +68,7 @@ const VideoCall = () => {
 				userToCall: userID,
 				signalData: data,
 				from: myID,
-				name
+				name: name
 			})
 		})
 
@@ -95,7 +95,10 @@ const VideoCall = () => {
 		})
 
 		peer.on('signal', (data) => {
-			socket.emit('answer-call', { signal: data, to: caller })
+			socket.emit('answer-call', { 
+				signal: data, 
+				to: caller 
+			})
 		})
 
 		peer.on('stream', (stream) => {
@@ -115,40 +118,40 @@ const VideoCall = () => {
 		<div className="container section">
 			<div id="video-container">
 				<div className="video">
-					{ stream && <video ref={myVideoRef} autoPlay playsInline muted /> }
+					{ stream && <video ref={myVideoRef} style={{ width: '300px' }} autoPlay playsInline muted /> }
 				</div>
 				<div className="video">
-					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} autoPlay playsInline /> )
-					 : null }
+					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} style={{ width: '300px' }} autoPlay playsInline /> )
+					: null }
 				</div>
 			</div>
 			<div className="myId">
 				<TakeInput
 					iconName="person"
 					labelText="Your Name"
+					validate={false}
 					options={{
 						type: 'text',
 						id: 'myname',
-						ref: inputRef,
 						handleChange,
 						value: name
 					}}
 				/>
 
 				<CopyToClipboard text={myID}>
-					<button>
+					<button className="btn">
 						<i className="material-icons left">content_paste</i>
-						Copy
+						Copy ID
 					</button>
 				</CopyToClipboard>
 
 				<TakeInput
 					iconName="content_copy"
 					labelText="Paste The ID Here"
+					validate={false}
 					options={{
 						type: 'text',
 						id: 'userID',
-						ref: inputRef,
 						handleChange,
 						value: userID
 					}}
@@ -156,22 +159,22 @@ const VideoCall = () => {
 
 				<div className="call-button">
 					{ callAccepted && !callEnded ? (
-						<button onClick={endCall}>
+						<button className="btn" onClick={endCall}>
 							End Call
 						</button> )
 						: (
-							<button onClick={callUser}>
+							<button className="btn" onClick={callUser}>
 								<i className="material-icons">call</i>
 							</button>
 						) }
-					{idToCall}
+					{userID}
 				</div>
 			</div>
 			<div>
 				{ receivingCall && !callAccepted ? (
 					<div className="caller">
-						<h1 >{name} is calling...</h1>
-						<button onClick={answerCall}>Anwer</button>
+						<h1>{name} is calling...</h1>
+						<button className="btn" onClick={answerCall}>Anwer</button>
 					</div> ) : null }
 			</div>
 		</div>

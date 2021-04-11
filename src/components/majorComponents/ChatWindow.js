@@ -40,7 +40,7 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setUser('')
                 setData(data => [ ...data, newData ])
 
-                if(audioRef.current){
+                if(audioRef.current) {
                     audioRef.current.muted = false
                     audioRef.current?.play()
                 }

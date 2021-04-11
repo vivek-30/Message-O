@@ -41,7 +41,7 @@ const Toolbar = ({ setOptions, theme }) => {
                     />
                     <i className={`material-icons small ${iconStyle}`}>wallpaper</i>
                 </span>
-                <span name="video-call">
+                <span name="video-call" onClick={() => { history.push('/VideoCall') }}>
                     <i className={`material-icons small ${iconStyle}`}>video_call</i>
                 </span>
                 <span name="logout" onClick={Logout}>

@@ -1,8 +1,9 @@
 import React from 'react'
 import Chat from './Chat'
-import SignUp from './components/authentication/SignUp'
-import SignIn from './components/authentication/SignIn'
 import Protected from './components/hoc/Protected'
+import SignIn from './components/authentication/SignIn'
+import SignUp from './components/authentication/SignUp'
+import VideoCall from './components/majorComponents/videoCall/VideoCall'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
@@ -10,10 +11,11 @@ const App = () => {
     <div className="container" id="chat-app">
       <Router>
         <Switch>
-          <Route exact path="/" component={SignUp} />
+          <Route exact path="/si" component={SignUp} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/SignIn" component={SignIn} />
           <Route path="/chat" component={Protected(Chat)} />
+          <Route exact path="/" component={VideoCall} />
         </Switch>
       </Router>
     </div>
