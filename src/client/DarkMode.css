@@ -3,7 +3,6 @@
     --darkBlack: #121212;
     --lightBlack: #222222;
     --lightBlue: #46b5d1;
-    --darkGrey: #424242;
     --lightGrey: #ccc;
 }
 
@@ -24,6 +23,12 @@
 
 .dark-icon, .dark-banner, .dark-active {
     color: var(--lightBlue) !important;
+}
+
+.dark-features {
+    border-right: 1px solid var(--lightBlue) !important;
+    border-bottom: 1px solid var(--lightBlue) !important;
+    border-left: 1px solid var(--lightBlue) !important;
 }
 
 .dark-features span:hover {
