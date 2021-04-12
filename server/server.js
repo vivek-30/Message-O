@@ -54,7 +54,9 @@ io.on('connection', (socket) => {
     //increment totalUsers count when a new user joins
     totalUsers++;
 
-    io.emit('total-users', totalUsers);
+    socket.on('total-users', () => {
+        io.emit('total-users', totalUsers);
+    });
 
     socket.on('myMsg', (data) => {
         io.to(socket.id).emit('myMsg', data);

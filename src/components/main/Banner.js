@@ -13,6 +13,8 @@ const Banner = ({ theme }) => {
 
         if(isMounted) {
 
+            socket.emit('total-users')
+
             socket.on('total-users', (totalUsers) => {
                 setActiveUsers(totalUsers)
             })
