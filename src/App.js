@@ -11,11 +11,11 @@ const App = () => {
     <div className="container" id="chat-app">
       <Router>
         <Switch>
-          <Route exact path="/si" component={SignUp} />
+          <Route exact path="/" component={SignUp} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/SignIn" component={SignIn} />
           <Route path="/chat" component={Protected(Chat)} />
-          <Route exact path="/" component={VideoCall} />
+          <Route path="/VideoCall" component={Protected(VideoCall)} />
         </Switch>
       </Router>
     </div>
