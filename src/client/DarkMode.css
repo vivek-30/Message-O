@@ -5,10 +5,20 @@
     --lightBlue: #46b5d1;
     --darkGrey: #424242;
     --lightGrey: #ccc;
+    --listColor: #04272d;
 }
 
 .dark-bg {
     background: var(--darkBlack) !important;
+}
+
+.dark-modal {
+    background: var(--lightBlack) !important;
+}
+
+.dark-list {
+    background: var(--listColor) !important;
+    color: var(--lightGrey) !important
 }
 
 .dark-window {
