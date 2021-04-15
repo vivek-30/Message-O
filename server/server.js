@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 4000;
 
-var users = {};
+var users = [];
 var totalUsers = 0;
 
 // Handle CORS Behaviour.
@@ -56,14 +56,24 @@ io.on('connection', (socket) => {
 
     io.emit('total-users', totalUsers);
 
+    socket.on('new-user', (name) => {
+        users.push({ 
+            id: ID,
+            name
+        });
+    });
+
     socket.on('myMsg', (data) => {
         io.to(ID).emit('myMsg', data);
     });
 
     socket.on('chat', (data) => {
-        users[ID] = data.user;
         // io.sockets.emit('chat', data);
         socket.broadcast.emit('chat', data);
+    });
+
+    socket.on('get-users-list', () => {
+        io.emit('users-list', users);
     });
 
     socket.on('status', (user) => {
@@ -73,15 +83,18 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         totalUsers--;
         socket.broadcast.emit('call-ended'); // for video call
+        var user = users.find((user) => user.id === ID);
         socket.broadcast.emit('leave', {
-            user: users[ID],
+            user,
             totalUsers
         });
-        delete users[ID];
+        users = users.filter((user) => user.id !== ID);
     });
 
     // Video-conference stuff
-    io.to(ID).emit('myID', ID);
+    socket.on('get-myID', () => {
+        io.to(ID).emit('myID', ID);
+    });
     
     socket.on('call-user', ({ name, userToCall, signalData, from }) => {
         io.to(userToCall).emit('call-user', {

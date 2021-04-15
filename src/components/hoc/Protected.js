@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { setName } from '../main/Form'
+import { socket } from '../../client/Chat'
 
 const Protected = (Component) => {
     
@@ -33,6 +34,10 @@ const Protected = (Component) => {
             })
             .then((data) => {
                 data.error ? console.log('error in verifying user', data.error) : data.success && data.name ? setName(data.name) : null
+
+                if(data.success) {
+                    socket.emit('new-user', data.name)
+                }
             })
             .catch((err) => {
                 console.error(err)
