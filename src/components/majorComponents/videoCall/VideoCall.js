@@ -22,26 +22,40 @@ const VideoCall = () => {
 
 	useEffect(() => {	
 
-		navigator.mediaDevices.getUserMedia({
-			video: true,
-			audio: true
-		})
-		.then((stream) => {
-			setStream(stream)
-			myVideoRef.current.srcObject = stream
-		})
-		.catch((err) => {
-			console.log('Error in setting video call', err)
-		})
+		let isMounted = true
 
-		socket.on('myID', (ID) => setMyID(ID))
+		if (isMounted) {
 
-		socket.on('call-user', ({ name, from, signal }) => {
-			setReceivingCall(true)
-			setName(name)
-			setCaller(from)
-			setCallerSignal(signal)
-		})
+			navigator.mediaDevices.getUserMedia({
+				video: true,
+				audio: true
+			})
+			.then((stream) => {
+				setStream(stream)
+				myVideoRef.current.srcObject = stream
+			})
+			.catch((err) => {
+				console.log('Error in setting video call', err)
+			})
+
+			socket.emit('get-myID')
+
+			socket.on('myID', (ID) => { 
+				console.log(ID)
+				setMyID(ID)
+			})
+
+			socket.on('call-user', ({ name, from, signal }) => {
+				setReceivingCall(true)
+				setName(name)
+				setCaller(from)
+				setCallerSignal(signal)
+			})
+		}
+
+		return () => {
+			isMounted = false
+		}
 
 	}, [])
 
