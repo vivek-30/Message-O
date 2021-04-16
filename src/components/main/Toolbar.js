@@ -60,9 +60,7 @@ const Toolbar = ({ setOptions, theme }) => {
                     <i className={`material-icons small ${iconStyle}`}>more_horiz</i>
                 </span>
             </div>
-            <Modal theme={theme} getInstance={(instance) => {
-                instance ? setInstance(instance) : console.log('Can Not Get Modal')
-            }} />
+            <Modal theme={theme} setInstance={setInstance} />
         </>
     )
 }

@@ -15,7 +15,7 @@ const App = () => {
           <Route path="/SignUp" component={SignUp} />
           <Route path="/SignIn" component={SignIn} />
           <Route path="/chat" component={Protected(Chat)} />
-          <Route path="/VideoCall" component={Protected(VideoCall)} />
+          <Route path="/VideoCall/:id" component={Protected(VideoCall)} />
         </Switch>
       </Router>
     </div>
