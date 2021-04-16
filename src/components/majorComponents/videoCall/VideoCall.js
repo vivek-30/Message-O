@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { socket } from '../../../client/Chat'
-import TakeInput from '../../main/TakeInput'
+import { useParams } from 'react-router-dom'
 import Peer from 'simple-peer'
+
+export var answerCall = null
+export var callRejected = null
+export var callUser = null
 
 const VideoCall = () => {
 
-	const [ name, setName ] = useState('')
 	const [ myID, setMyID ] = useState(null)
+	const [ person, setPerson ] = useState('')
 	const [ caller, setCaller ] = useState('')
 	const [ stream, setStream ] = useState(null)
-	const [ userID, setUserID ] = useState(null)
 	const [ callEnded, setCallEnded ] = useState(false)
 	const [ callerSignal, setCallerSignal ] = useState(null)
 	const [ callAccepted, setCallAccepted ] = useState(false)
 	const [ receivingCall, setReceivingCall ] = useState(false)
 
+	const params = useParams()
 	const connectionRef = useRef(null)
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
@@ -26,6 +29,10 @@ const VideoCall = () => {
 
 		if (isMounted) {
 
+			socket.emit('get-myID')
+
+			socket.on('myID', (id) => setMyID(id))
+			
 			navigator.mediaDevices.getUserMedia({
 				video: true,
 				audio: true
@@ -38,36 +45,34 @@ const VideoCall = () => {
 				console.log('Error in setting video call', err)
 			})
 
-			socket.emit('get-myID')
-
-			socket.on('myID', (ID) => { 
-				console.log(ID)
-				setMyID(ID)
-			})
-
 			socket.on('call-user', ({ name, from, signal }) => {
 				setReceivingCall(true)
-				setName(name)
+				setPerson(name)
 				setCaller(from)
 				setCallerSignal(signal)
 			})
 		}
 
 		return () => {
+			socket.emit('stop-notifying')
+			stream?.getTracks()?.forEach(function(track) {
+				track.stop()
+			})
 			isMounted = false
 		}
 
 	}, [])
 
-	const handleChange = (e) => {
-		const { id, value } = e.target
-		id === 'myname' ? setName(value) : id === 'userID' ? setUserID(value) : null
+	callRejected = () => {
+		console.log('callReject using video component')
 	}
 
-	const callUser = () => {
+	callUser = (id = null) => {
 
-		if(!userID) {
-			alert('Can\'t make a call. Please fill an ID first')
+		const ID = id || params.id
+
+		if(!ID) {
+			alert('Something Went Wrong. Can\'t make a call.')
 			return
 		}
 
@@ -79,10 +84,9 @@ const VideoCall = () => {
 
 		peer.on('signal', (data) => {
 			socket.emit('call-user', {
-				userToCall: userID,
+				userToCall: ID,
 				signalData: data,
-				from: myID,
-				name: name
+				from: myID
 			})
 		})
 
@@ -98,7 +102,7 @@ const VideoCall = () => {
 		connectionRef.current = peer
 	}
 
-	const answerCall = () => {
+	answerCall = () => {
 
 		setCallAccepted(true)
 
@@ -140,37 +144,6 @@ const VideoCall = () => {
 				</div>
 			</div>
 			<div className="myId">
-				<TakeInput
-					iconName="person"
-					labelText="Your Name"
-					validate={false}
-					options={{
-						type: 'text',
-						id: 'myname',
-						handleChange,
-						value: name
-					}}
-				/>
-
-				<CopyToClipboard text={myID}>
-					<button className="btn">
-						<i className="material-icons left">content_paste</i>
-						Copy ID
-					</button>
-				</CopyToClipboard>
-
-				<TakeInput
-					iconName="content_copy"
-					labelText="Paste The ID Here"
-					validate={false}
-					options={{
-						type: 'text',
-						id: 'userID',
-						handleChange,
-						value: userID
-					}}
-				/>
-
 				<div className="call-button">
 					{ callAccepted && !callEnded ? (
 						<button className="btn" onClick={endCall}>
@@ -181,13 +154,12 @@ const VideoCall = () => {
 								<i className="material-icons">call</i>
 							</button>
 						) }
-					{userID}
 				</div>
 			</div>
 			<div>
 				{ receivingCall && !callAccepted ? (
-					<div className="caller">
-						<h1>{name} is calling...</h1>
+					<div>
+						<h4>{person} is calling...</h4>
 						<button className="btn" onClick={answerCall}>Anwer</button>
 					</div> ) : null }
 			</div>
