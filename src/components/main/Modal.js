@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import M from 'materialize-css'
 import { socket } from '../../client/Chat'
+import { user } from './Form'
+import { useHistory } from 'react-router-dom'
+import { callUser } from '../majorComponents/videoCall/VideoCall'
 
-const Modal = ({ getInstance, theme }) => {
+const Modal = ({ setInstance, theme }) => {
 
+    const [ myID, setMyID ] = useState([])
     const [ users, setUsers ] = useState([])
-
+    
+    const history = useHistory()
     const modalRef = useRef(null)
 
     useEffect(() => {
@@ -16,9 +21,11 @@ const Modal = ({ getInstance, theme }) => {
 
             socket.emit('get-users-list')
 
-            socket.on('users-list', (users) => {
-                setUsers(users)
-            })
+            socket.emit('get-myID')
+
+			socket.on('myID', (id) => setMyID(id))
+
+            socket.on('users-list', (users) => setUsers(users))
 
             socket.on('leave', () => {
                 socket.emit('get-users-list')
@@ -28,7 +35,7 @@ const Modal = ({ getInstance, theme }) => {
                 var instance = M.Modal.init(modalRef.current, {
                     dismissible: true
                 })
-                getInstance(instance)
+                setInstance(instance)
             }
             else {
                 console.log('Modal Is Yet To Be Loaded.')
@@ -46,17 +53,24 @@ const Modal = ({ getInstance, theme }) => {
             <div className="modal-content">
                 <p className={`flow-text ${theme === 'dark' ? 'blue-text' : ''}`}>Online Users</p>
                 <ul className="collection">
-                    { users.length ? users.map((user) => {
+                    { users.length ? users.map(({ id, name }) => {
                         return (
                             <li 
-                                key={user.id} 
+                                key={id} 
                                 className={`collection-item ${theme === 'dark' ? 'dark-list' : ''}`}
-                                onClick={() => console.log('onclick', user.id, user.name)}
+                                onClick={() => {
+                                    socket.emit('notify-user', { id, user, myID })
+                                    history.push(`/VideoCall/${id}`)
+                                    setTimeout(() => callUser(id), 2000)
+                                }}
                             >
-                                {user.name}
+                                {name}
                             </li>
                         )
-                    }) : null }
+                    }) : ( 
+                    <li className={`collection-item ${theme === 'dark' ? 'dark-list' : ''}`}>
+                        No User is Currently active
+                    </li> ) }
                 </ul>
             </div>
             <div className={`modal-footer ${theme === 'dark' ? 'dark-bg' : ''}`}>
