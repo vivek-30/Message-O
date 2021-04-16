@@ -57,10 +57,24 @@ io.on('connection', (socket) => {
     io.emit('total-users', totalUsers);
 
     socket.on('new-user', (name) => {
-        users.push({ 
-            id: ID,
-            name
-        });
+
+        if(users.length) {
+            let user = users.find((user) => user.id === ID)
+            if(!user) {
+                users.push({ id: ID, name });
+            }
+        }
+        else {
+            users.push({ id: ID, name }); 
+        }
+    });
+
+    socket.on('notify-user', ({ id, user, myID }) => {
+        io.to(id).emit('notify-user', { user, myID });
+    });
+
+    socket.on('stop-notifying', () => { 
+        socket.broadcast.emit('stop-notifying');
     });
 
     socket.on('myMsg', (data) => {
@@ -96,9 +110,10 @@ io.on('connection', (socket) => {
         io.to(ID).emit('myID', ID);
     });
     
-    socket.on('call-user', ({ name, userToCall, signalData, from }) => {
+    socket.on('call-user', ({ userToCall, signalData, from }) => {
+        let user = users.find((user) => user.id == from);
         io.to(userToCall).emit('call-user', {
-            name,
+            name: user.name,
             from,
             signal: signalData
         });
