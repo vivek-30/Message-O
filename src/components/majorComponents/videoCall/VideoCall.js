@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../../client/Chat'
 import { useParams, useHistory } from 'react-router-dom'
 import Peer from 'simple-peer'
+import './videoCall.css'
 
 export var answerCall = null
 export var callRejected = null
@@ -20,12 +21,12 @@ const VideoCall = () => {
 
 	const params = useParams()
 	const history = useHistory()
-	
+
 	const connectionRef = useRef(null)
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
 
-	useEffect(() => {	
+	useEffect(() => {
 
 		let isMounted = true
 
@@ -139,35 +140,38 @@ const VideoCall = () => {
 	}
 
 	return (
-		<div className="container section">
-			<div id="video-container">
-				<div className="video">
-					{ stream && <video ref={myVideoRef} style={{ width: '300px' }} autoPlay playsInline muted /> }
-				</div>
-				<div className="video">
-					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} style={{ width: '300px' }} autoPlay playsInline /> )
-					: null }
-				</div>
-			</div>
-			<div className="myId">
-				<div className="call-button">
-					{ callAccepted && !callEnded ? (
-						<button className="btn" onClick={endCall}>
-							End Call
-						</button> )
-						: (
-							<button className="btn" onClick={() => callUser()}>
-								<i className="material-icons">call</i>
-							</button>
-						) }
-				</div>
-			</div>
-			<div>
+		<div className="section">
+			<div className="left">
 				{ receivingCall && !callAccepted ? (
-					<div>
-						<h4>{person} is calling...</h4>
-						<button className="btn" onClick={() => answerCall()}>Anwer</button>
-					</div> ) : null }
+					<span className="flow-text black-text">{person} is calling...</span>
+				) : null }
+			</div>
+			<div id="video-container">
+				<span className="video">
+					{ stream && <video ref={myVideoRef} playsInline autoPlay muted /> }
+				</span>
+				<span className="video">
+					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} playsInline autoPlay muted /> )
+					: null }
+				</span>
+			</div>
+			<div id="call-handlers">
+				{ callAccepted && !callEnded ? (
+					<button className="btn-large red darken-1 center" onClick={endCall}>
+						<i className="material-icons left">call_end</i>
+						End Call
+					</button> 
+				) : receivingCall && !callAccepted ? (
+					<button className="btn-large green lighten-1 center" onClick={() => answerCall()}>
+						<i className="material-icons left">call</i>
+						Anwer Call
+					</button>
+				) : (
+					<button className="btn-large blue darken-1 center" onClick={() => callUser()}>
+						<i className="material-icons left">call</i>
+						Make Call
+					</button>
+				) }
 			</div>
 		</div>
 	)
