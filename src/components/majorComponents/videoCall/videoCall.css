@@ -2,7 +2,17 @@
     display: flex;
 }
 
-/* .video video {
+.video {
     margin: 2rem;
-    width: 35vw;
-} */
+}
+
+.video video {
+    width: 30rem;
+    border-radius: 1.5rem;
+}
+
+#call-handlers {
+    margin: 2.5rem 0;
+    width: 80%;
+    text-align: center;
+}
