@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../../client/Chat'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import Peer from 'simple-peer'
 
 export var answerCall = null
@@ -19,6 +19,8 @@ const VideoCall = () => {
 	const [ receivingCall, setReceivingCall ] = useState(false)
 
 	const params = useParams()
+	const history = useHistory()
+	
 	const connectionRef = useRef(null)
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
@@ -123,13 +125,17 @@ const VideoCall = () => {
 			userVideoRef.current.srcObject = stream
 		})
 
-		peer.signal(callerSignal)
+		callerSignal ? peer.signal(callerSignal) : console.log('no callersignal')
 		connectionRef.current = peer
 	}
 
 	const endCall = () => {
 		setCallEnded(true)
-		connectionRef.current.destroy()
+		stream?.getTracks().forEach(function(track) {
+			track.stop()
+		})
+		connectionRef.current?.destroy()
+		history.push('/chat')
 	}
 
 	return (
@@ -150,7 +156,7 @@ const VideoCall = () => {
 							End Call
 						</button> )
 						: (
-							<button className="btn" onClick={callUser}>
+							<button className="btn" onClick={() => callUser()}>
 								<i className="material-icons">call</i>
 							</button>
 						) }
@@ -160,7 +166,7 @@ const VideoCall = () => {
 				{ receivingCall && !callAccepted ? (
 					<div>
 						<h4>{person} is calling...</h4>
-						<button className="btn" onClick={answerCall}>Anwer</button>
+						<button className="btn" onClick={() => answerCall()}>Anwer</button>
 					</div> ) : null }
 			</div>
 		</div>

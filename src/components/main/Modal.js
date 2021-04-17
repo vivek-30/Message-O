@@ -3,11 +3,10 @@ import M from 'materialize-css'
 import { socket } from '../../client/Chat'
 import { user } from './Form'
 import { useHistory } from 'react-router-dom'
-import { callUser } from '../majorComponents/videoCall/VideoCall'
 
 const Modal = ({ setInstance, theme }) => {
 
-    const [ myID, setMyID ] = useState([])
+    const [ myID, setMyID ] = useState('')
     const [ users, setUsers ] = useState([])
     
     const history = useHistory()
@@ -19,12 +18,10 @@ const Modal = ({ setInstance, theme }) => {
 
         if(isMounted) {
 
-            socket.emit('get-users-list')
-
             socket.emit('get-myID')
-
 			socket.on('myID', (id) => setMyID(id))
-
+            
+            socket.emit('get-users-list')
             socket.on('users-list', (users) => setUsers(users))
 
             socket.on('leave', () => {
@@ -61,7 +58,6 @@ const Modal = ({ setInstance, theme }) => {
                                 onClick={() => {
                                     socket.emit('notify-user', { id, user, myID })
                                     history.push(`/VideoCall/${id}`)
-                                    setTimeout(() => callUser(id), 2000)
                                 }}
                             >
                                 {name}

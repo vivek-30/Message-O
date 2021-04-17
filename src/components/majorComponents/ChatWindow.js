@@ -5,7 +5,7 @@ import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
 import { setWallpaper } from '../../client/helperFunctions'
 import DropDown from '../../client/dropdown/DropDown'
-import { callRejected, answerCall } from './videoCall/VideoCall'
+import { callRejected } from './videoCall/VideoCall'
 import ToolBar from '../main/Toolbar'
 
 const ChatWindow = ({ theme, setTheme }) => {
@@ -43,10 +43,10 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setDisplayNotifier(true)
                 setCallingUserID(myID)
                 setCallingUser(user)
-                setTimeout(() => { 
-                    // setDisplayNotifier(false)
-                    callRejected()
-                }, 10000)
+                // setTimeout(() => { 
+                //     // setDisplayNotifier(false)
+                //     // callRejected()
+                // }, 10000)
             })
 
             socket.on('stop-notifying', () => console.log('stop notifying'))
@@ -95,7 +95,6 @@ const ChatWindow = ({ theme, setTheme }) => {
                         <button className="left btn-flat blue-text" onClick={callRejected}>Cancel</button>
                         <button className="right btn-flat blue-text" onClick={() => {
                             history.push(`VideoCall/${callingUserID}`)
-                            setTimeout(() => answerCall(), 3000)
                         }}>Join</button>
                     </div>
                 </div>
