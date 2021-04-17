@@ -50,6 +50,10 @@
     background-color: var(--darkBlack) !important;
 }
 
+.dark-typing-bar {
+    background-color: #333 !important;
+}
+
 .dark-send-btn {
     border: var(--blueBorder) !important
 }

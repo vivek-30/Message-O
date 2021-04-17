@@ -21,7 +21,7 @@ const Toolbar = ({ setOptions, theme }) => {
         })
         .then((response) => {
             response.ok ? history.push('/SignIn') 
-            : customAlert('There is a problem in server please try again later')
+            : customAlert('There is a problem in server please try again later', theme)
         })
         .catch((err) => {
             console.log('Error in Logging out', err)
@@ -46,7 +46,7 @@ const Toolbar = ({ setOptions, theme }) => {
                 </span>
                 <span name="video-call" onClick={() => {
                     socket.emit('get-users-list')
-                    instance ? instance?.open() : customAlert('Internal Error in Loding up the Modal') 
+                    instance ? instance?.open() : customAlert('Internal Error in Loding up the Modal', theme) 
                 }}>
                     <i className={`material-icons small ${iconStyle}`}>video_call</i>
                 </span>

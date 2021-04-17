@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
 import { socket } from '../../client/Chat'
 import Message from '../../client/Message'
 import chatTone from '../../../public/chat_tone.mp3'
 import { setWallpaper } from '../../client/helperFunctions'
 import DropDown from '../../client/dropdown/DropDown'
-import { callRejected } from './videoCall/VideoCall'
 import ToolBar from '../main/Toolbar'
+import Notifier from '../main/Notifier'
 
 const ChatWindow = ({ theme, setTheme }) => {
 
@@ -20,8 +19,6 @@ const ChatWindow = ({ theme, setTheme }) => {
         backgroundColor: '#c2c2c2', 
         padding: '8px 20px'
     })
-
-    const history = useHistory()
 
     const bottomScrollRef = useRef(null)
     const audioRef = useRef(null)
@@ -86,26 +83,14 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     return (
         <>
-            { displayNotifier && (
-                <div id="notifier" className={`${theme === 'dark' ? 'dark-notifier dark-border' : 'light-notifier light-shadow'}`}>
-                    <div id="notifier-title" className={`center ${theme === 'dark' ? 'grey-text' : 'black-text'}`}>
-                        {callingUser} wants you to join video conference
-                    </div>
-                    <div className={`${theme === 'dark' ? 'dark-notifier' : 'light-notifier'}`}>
-                        <button className="left btn-flat blue-text" onClick={callRejected}>Cancel</button>
-                        <button className="right btn-flat blue-text" onClick={() => {
-                            history.push(`VideoCall/${callingUserID}`)
-                        }}>Join</button>
-                    </div>
-                </div>
-            ) }
+            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} theme={theme} />}
             <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
                 <div id="chat-window" className={theme === 'dark' ? 'dark-window' : ''}>
                     <div id="display">
                         <Message data={data} theme={theme} />
                         <div ref={bottomScrollRef}></div>
                     </div>
-                    <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
+                    <div id="status-bar" className={`${theme === 'dark' ? 'blue-text dark-typing-bar' : 'teal-text'} text-darken-2`} style={CSS} >
                         <em>{user} is typing ...</em>
                     </div>
                     <audio src={chatTone} ref={audioRef} muted></audio>

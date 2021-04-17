@@ -141,7 +141,7 @@ const VideoCall = () => {
 
 	return (
 		<div className="section">
-			<div className="left">
+			<div>
 				{ receivingCall && !callAccepted ? (
 					<span className="flow-text black-text">{person} is calling...</span>
 				) : null }
