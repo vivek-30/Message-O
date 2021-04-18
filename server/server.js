@@ -69,14 +69,6 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('notify-user', ({ id, user, myID }) => {
-        io.to(id).emit('notify-user', { user, myID });
-    });
-
-    socket.on('stop-notifying', () => { 
-        socket.broadcast.emit('stop-notifying');
-    });
-
     socket.on('myMsg', (data) => {
         io.to(ID).emit('myMsg', data);
     });
@@ -84,10 +76,6 @@ io.on('connection', (socket) => {
     socket.on('chat', (data) => {
         // io.sockets.emit('chat', data);
         socket.broadcast.emit('chat', data);
-    });
-
-    socket.on('get-users-list', () => {
-        io.emit('users-list', users);
     });
 
     socket.on('status', (user) => {
@@ -109,6 +97,10 @@ io.on('connection', (socket) => {
     socket.on('get-myID', () => {
         io.to(ID).emit('myID', ID);
     });
+
+    socket.on('get-users-list', () => {
+        io.emit('users-list', users);
+    });
     
     socket.on('call-user', ({ userToCall, signalData, from }) => {
         let user = users.find((user) => user.id == from);
@@ -119,8 +111,21 @@ io.on('connection', (socket) => {
         });
     });
 
+    socket.on('notify-user', ({ id, user, myID }) => {
+        io.to(id).emit('notify-user', { user, myID });
+    });
+
+    socket.on('stop-notifying', () => { 
+        socket.broadcast.emit('stop-notifying');
+    });
+
     socket.on('answer-call', ({ signal, to }) => {
         io.to(to).emit('call-accepted', signal);
+    });
+
+    socket.on('call-rejected', (userID) => {
+        let user = users.find((user) => user.id === ID)
+        io.to(userID).emit('call-rejected', user.name)
     });
 });
 
