@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../../client/Chat'
 import { useParams, useHistory } from 'react-router-dom'
+import { customAlert } from '../../../client/helperFunctions'
 import Peer from 'simple-peer'
 import './videoCall.css'
 
 export var answerCall = null
-export var callRejected = null
 export var callUser = null
 
 const VideoCall = () => {
@@ -14,7 +14,8 @@ const VideoCall = () => {
 	const [ person, setPerson ] = useState('')
 	const [ caller, setCaller ] = useState('')
 	const [ stream, setStream ] = useState(null)
-	const [ callEnded, setCallEnded ] = useState(false)
+	const [ isHomeButton, setIsHomeButton ] = useState(false)
+	const [ isDisabled, setIsDisabled ] = useState(false)
 	const [ callerSignal, setCallerSignal ] = useState(null)
 	const [ callAccepted, setCallAccepted ] = useState(false)
 	const [ receivingCall, setReceivingCall ] = useState(false)
@@ -26,6 +27,8 @@ const VideoCall = () => {
 	const myVideoRef = useRef(null)
 	const userVideoRef = useRef(null)
 
+	var callEnded = false
+
 	useEffect(() => {
 
 		let isMounted = true
@@ -33,7 +36,6 @@ const VideoCall = () => {
 		if (isMounted) {
 
 			socket.emit('get-myID')
-
 			socket.on('myID', (id) => setMyID(id))
 			
 			navigator.mediaDevices.getUserMedia({
@@ -54,6 +56,11 @@ const VideoCall = () => {
 				setCaller(from)
 				setCallerSignal(signal)
 			})
+
+			socket.on('call-rejected', (user) => {
+				customAlert(`${user} declined your video call.`)
+				setIsHomeButton(true)
+			})
 		}
 
 		return () => {
@@ -65,10 +72,6 @@ const VideoCall = () => {
 		}
 
 	}, [])
-
-	callRejected = () => {
-		console.log('callReject using video component')
-	}
 
 	callUser = (id = null) => {
 
@@ -126,12 +129,12 @@ const VideoCall = () => {
 			userVideoRef.current.srcObject = stream
 		})
 
-		callerSignal ? peer.signal(callerSignal) : console.log('no callersignal')
+		callerSignal ? peer.signal(callerSignal) : console.log('No callerSignal present.')
 		connectionRef.current = peer
 	}
 
 	const endCall = () => {
-		setCallEnded(true)
+		// setCallEnded(true)
 		stream?.getTracks().forEach(function(track) {
 			track.stop()
 		})
@@ -156,7 +159,12 @@ const VideoCall = () => {
 				</span>
 			</div>
 			<div id="call-handlers">
-				{ callAccepted && !callEnded ? (
+				{ isHomeButton ? (
+					<button className="btn-large grey lighten-4 orange-text center" onClick={endCall}>
+						<i className="material-icons left">home</i>
+						Go Home
+					</button>
+				) : callAccepted && !callEnded ? (
 					<button className="btn-large red darken-1 center" onClick={endCall}>
 						<i className="material-icons left">call_end</i>
 						End Call
@@ -167,9 +175,14 @@ const VideoCall = () => {
 						Anwer Call
 					</button>
 				) : (
-					<button className="btn-large blue darken-1 center" onClick={() => callUser()}>
+					<button className={`btn-large blue darken-1 center ${isDisabled ? 'disabled' : ''}`} onClick={() => {
+						if(!isDisabled) {
+							setIsDisabled(true)
+							callUser()
+						}
+					}}>
 						<i className="material-icons left">call</i>
-						Make Call
+						{isDisabled ? 'Calling ...' : 'Make Call'}
 					</button>
 				) }
 			</div>
