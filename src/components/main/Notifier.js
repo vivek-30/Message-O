@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { callRejected } from '../majorComponents/videoCall/VideoCall'
+import { socket } from '../../client/Chat'
 
-const Notifier = ({ person, personID, theme }) => {
+const Notifier = ({ person, personID, stopTimeOutID, setDisplayNotifier, theme }) => {
 
     const history = useHistory()
 
@@ -12,10 +12,15 @@ const Notifier = ({ person, personID, theme }) => {
                 {person} wants you to join video conference.
             </div>
             <div className={`${theme === 'dark' ? 'dark-notifier' : 'light-notifier'}`}>
-                <button className="left btn-flat red-text text-darken-2" onClick={callRejected}>
+                <button className="left btn-flat blue-text text-darken-1" onClick={() => {
+                    clearTimeout(stopTimeOutID)
+                    setDisplayNotifier(false)
+                    socket.emit('call-rejected', personID)
+                }}>
                     Cancel
                 </button>
-                <button className="right btn-flat blue-text" onClick={() => {
+                <button className="right btn-flat blue-text text-darken-1" onClick={() => {
+                    clearTimeout(stopTimeOutID)
                     history.push(`VideoCall/${personID}`)
                 }}>
                     Join

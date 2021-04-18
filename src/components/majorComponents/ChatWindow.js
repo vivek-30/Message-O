@@ -23,6 +23,8 @@ const ChatWindow = ({ theme, setTheme }) => {
     const bottomScrollRef = useRef(null)
     const audioRef = useRef(null)
 
+    var stopTimeOutID = null
+
     useEffect(() => {
 
         let isMounted = true
@@ -40,10 +42,10 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setDisplayNotifier(true)
                 setCallingUserID(myID)
                 setCallingUser(user)
-                // setTimeout(() => { 
-                //     // setDisplayNotifier(false)
-                //     // callRejected()
-                // }, 10000)
+                setTimeout(() => setDisplayNotifier(false), 15000)
+                stopTimeOutID = setTimeout(() => { 
+                    socket.emit('call-rejected', myID)
+                }, 15000)
             })
 
             socket.on('stop-notifying', () => console.log('stop notifying'))
@@ -83,7 +85,7 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     return (
         <>
-            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} theme={theme} />}
+            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} stopTimeOutID={stopTimeOutID} setDisplayNotifier={setDisplayNotifier} theme={theme} />}
             <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
                 <div id="chat-window" className={theme === 'dark' ? 'dark-window' : ''}>
                     <div id="display">
