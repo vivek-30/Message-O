@@ -47,7 +47,7 @@ export const setWallpaper = (url = null) => {
     let savedURL = localStorage.getItem('bg-wallpaper')
     let imageURL = url ? url : savedURL ? JSON.parse(savedURL) : null
     if(imageURL) {
-        chatWindow.style.background = `url(${imageURL}) no-repeat center`
+        chatWindow.style.background = `url(data:image/png;base64,${imageURL}) no-repeat center`
         chatWindow.style.backgroundSize = 'cover'
         // chatWindow.style.opacity = '0.7'
         // chatWindow.style.zIndex = -1
@@ -69,7 +69,12 @@ export const removeWallpaper = (theme) => {
 }
 
 export const handleFileInput = (image) => {
-    var url = window.URL.createObjectURL(image)
-    localStorage.setItem('bg-wallpaper', JSON.stringify(url))
-    setWallpaper(url)
+
+    const reader = new FileReader()
+    reader.onloadend = () => {
+        const base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
+        localStorage.setItem('bg-wallpaper', JSON.stringify(base64String))
+        setWallpaper(base64String)
+    }
+    reader.readAsDataURL(image)
 }

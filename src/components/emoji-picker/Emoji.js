@@ -17,8 +17,9 @@ const lightThemePicker = {
 
 const darkThemePicker = {
     border: '1px solid #46b5d1',
-    backgroundColor: '#424242',
-    boxShadow: '2px 2px 5px 1px rgba(0,0,0,0.3)'
+    borderRadius: '7px',
+    background: '#222222',
+    boxShadow:  '5px 5px 5px #151515, -5px -5px 5px #2f2f2f'
 }
 
 const Emoji = ({ theme = 'light' }) => {

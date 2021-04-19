@@ -54,7 +54,9 @@ io.on('connection', (socket) => {
     const { id: ID } = socket; // grab id as ID from socket object
     totalUsers++;
 
-    io.emit('total-users', totalUsers);
+    socket.on('total-users', () => {
+        io.emit('total-users', totalUsers);
+    });
 
     socket.on('new-user', (name) => {
 

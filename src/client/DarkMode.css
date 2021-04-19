@@ -3,7 +3,6 @@
     --darkBlack: #121212;
     --lightBlack: #222222;
     --lightBlue: #46b5d1;
-    --darkGrey: #424242;
     --lightGrey: #ccc;
     --listColor: #04272d;
     --blueBorder: 1px solid #46b5d1;
@@ -46,6 +45,12 @@
     color: var(--lightBlue) !important;
 }
 
+.dark-features {
+    border-right: 1px solid var(--lightBlue) !important;
+    border-bottom: 1px solid var(--lightBlue) !important;
+    border-left: 1px solid var(--lightBlue) !important;
+}
+
 .dark-features span:hover {
     background-color: var(--darkBlack) !important;
 }
@@ -63,10 +68,10 @@
 }
 
 .dark-drop-down {
-    border: var(--blueBorder) !important;
-    background-color: var(--darkGrey) !important;
+    border: 1px solid var(--lightBlue) !important;
+    background: var(--lightBlack) !important;
     color: var(--lightGrey) !important;
-    box-shadow: 2px 2px 2px var(--lightBlack) !important;
+    box-shadow: 5px 5px 5px #151515, -5px -5px 5px #2f2f2f !important;
 }
 
 .dark-msg span.msg {
