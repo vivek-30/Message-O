@@ -1,6 +1,6 @@
 # Message-O ( Message Online )
 
-Message-O Is A Real Time Chat APP Created Using React, WebSockets, [Socket.io](https://socket.io/ "socket.io library") and NodeJs.
+Message-O Is A Real Time Chat APP Created Using React, WebSockets, [Socket.io](https://socket.io/ "socket.io library"), NodeJs, MongoDB and WebRTC.
 
 It allows users to easily interact with each other with some extra cool and interesting features to enjoy.
 

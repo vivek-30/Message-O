@@ -1,6 +1,6 @@
 {
   "name": "message-o",
-  "version": "3.4.1",
+  "version": "3.5.1",
   "description": "Message-O Real Time Chat APP created with React, WebSocket, NodeJS and MongoDB",
   "main": "index.js",
   "scripts": {
