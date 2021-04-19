@@ -115,10 +115,6 @@ io.on('connection', (socket) => {
         io.to(id).emit('notify-user', { user, myID });
     });
 
-    socket.on('stop-notifying', () => { 
-        socket.broadcast.emit('stop-notifying');
-    });
-
     socket.on('answer-call', ({ signal, to }) => {
         io.to(to).emit('call-accepted', signal);
     });

@@ -48,8 +48,6 @@ const ChatWindow = ({ theme, setTheme }) => {
                 }, 15000)
             })
 
-            socket.on('stop-notifying', () => console.log('stop notifying'))
-
             socket.on('chat', (newData) => {
                 setCSS({
                     ...CSS, 
@@ -85,8 +83,8 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     return (
         <>
-            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} stopTimeOutID={stopTimeOutID} setDisplayNotifier={setDisplayNotifier} theme={theme} />}
-            <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
+            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} stopTimeOutID={stopTimeOutID} setDisplayNotifier={setDisplayNotifier} theme={theme} /> }
+            <div id="outer-chat-box" style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }}>
                 <div id="chat-window" className={theme === 'dark' ? 'dark-window' : ''}>
                     <div id="display">
                         <Message data={data} theme={theme} />
