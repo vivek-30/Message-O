@@ -10,15 +10,21 @@ const Chat = () => {
     const [ theme, setTheme ] = useState(currentTheme)
 
     useEffect(() => {
-        var Body = document.body
-        if(theme === 'dark') {
-            Body.classList.add('dark-bg')
-        }
-        else {
-            Body.classList.remove('dark-bg')
+
+        let isMounted = true
+
+        if(isMounted) {
+            var Body = document.body
+            if(theme === 'dark') {
+                Body.classList.add('dark-bg')
+            }
+            else {
+                Body.classList.remove('dark-bg')
+            }
         }
 
         return () => {
+            isMounted = false
             Body.classList.remove('dark-bg')
         }
         
