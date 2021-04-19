@@ -74,7 +74,7 @@ const Form = ({ theme }) => {
                 required
             />
 
-            <button id="send-msg-btn" type="submit" className={`btn-floating blue darken-2 ${theme === 'dark' ? 'dark-send-btn' : ''}`}>
+            <button id="send-msg-btn" type="submit" className={`btn-floating blue-grey ${theme === 'dark' ? 'dark-send-btn' : ''}`}>
                 <i className={`material-icons ${theme === 'dark' ? 'dark-icon' : ''}`}>send</i>
             </button>
         </form>

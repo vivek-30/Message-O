@@ -34,15 +34,15 @@ const Banner = ({ theme }) => {
 
     }, [])
 
-    const iconStyle = theme === 'dark' ? 'dark-icon' : 'teal-text'
+    const iconStyle = theme === 'dark' ? 'dark-icon' : 'blue-grey-text'
 
     return (
         <div className="section center">
             <Link to="/chat">
-                <span id="banner" className={`flow-text teal-text ${theme === 'dark' ? 'dark-banner' : ''}`}>Chat App</span>
+                <span id="banner" className={`flow-text blue-grey-text ${theme === 'dark' ? 'dark-banner' : ''}`}>Message-O</span>
                 <span id="logo"><i className={`material-icons ${iconStyle}`}>forum</i></span>
             </Link>
-            <span className={`right teal-text text-darken-5 ${theme === 'dark' ? 'dark-active' : ''}`} id="active-users">{activeUsers} Active</span>
+            <span className={`right blue-grey-text text-darken-5 ${theme === 'dark' ? 'dark-active' : ''}`} id="active-users">{activeUsers} Active</span>
         </div>
     )
 }

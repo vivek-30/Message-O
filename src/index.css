@@ -14,6 +14,10 @@ body,nav {
     left: 0;
 }
 
+#banner {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 #chat-app .container {
     margin: 10px 0;
 }
@@ -25,7 +29,8 @@ body,nav {
 }
 
 #active-users {
-    margin-top: 0.7rem;
+    margin-top: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #notifier {
