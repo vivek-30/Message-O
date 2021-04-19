@@ -4,15 +4,35 @@
     --lightBlack: #222222;
     --lightBlue: #46b5d1;
     --lightGrey: #ccc;
+    --listColor: #04272d;
+    --blueBorder: 1px solid #46b5d1;
 }
 
 .dark-bg {
     background: var(--darkBlack) !important;
 }
 
+.dark-modal {
+    background: var(--lightBlack) !important;
+}
+
+.dark-list {
+    background: var(--listColor) !important;
+    color: var(--lightGrey) !important
+}
+
+.dark-notifier {
+    background: #313131 !important;
+    color: var(--lightGrey) !important;
+}
+
+.dark-border {
+    border: var(--blueBorder) !important;
+}
+
 .dark-window {
     background-color: var(--lightBlack) !important;
-    border: 1px solid var(--lightBlue) !important;
+    border: var(--blueBorder) !important;
 } 
 
 .dark-message-box {
@@ -35,8 +55,12 @@
     background-color: var(--darkBlack) !important;
 }
 
+.dark-typing-bar {
+    background-color: #333 !important;
+}
+
 .dark-send-btn {
-    border: 1px solid var(--lightBlue) !important
+    border: var(--blueBorder) !important
 }
 
 #send-msg-btn i.dark-icon {

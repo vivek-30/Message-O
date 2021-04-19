@@ -22,7 +22,7 @@ const Banner = ({ theme }) => {
             socket.on('leave', ({ totalUsers, user }) => {
                 setActiveUsers(totalUsers)
                 if(user) {
-                    customAlert(`${user} Left The Chat`, theme)
+                    customAlert(`${user.name} Left The Chat`, theme)
                 }
             })
 

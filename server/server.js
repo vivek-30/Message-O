@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 4000;
 
-var users = {};
+var users = [];
 var totalUsers = 0;
 
 // Handle CORS Behaviour.
@@ -49,21 +49,33 @@ const io = socket(server, {
 });
 
 io.on('connection', (socket) => {
-    // console.log('New user connected with ID : ',socket.id);
+    // console.log('New user connected with ID :', socket.id);
 
-    //increment totalUsers count when a new user joins
+    const { id: ID } = socket; // grab id as ID from socket object
     totalUsers++;
 
     socket.on('total-users', () => {
         io.emit('total-users', totalUsers);
     });
 
+    socket.on('new-user', (name) => {
+
+        if(users.length) {
+            let user = users.find((user) => user.id === ID)
+            if(!user) {
+                users.push({ id: ID, name });
+            }
+        }
+        else {
+            users.push({ id: ID, name }); 
+        }
+    });
+
     socket.on('myMsg', (data) => {
-        io.to(socket.id).emit('myMsg', data);
+        io.to(ID).emit('myMsg', data);
     });
 
     socket.on('chat', (data) => {
-        users[socket.id] = data.user;
         // io.sockets.emit('chat', data);
         socket.broadcast.emit('chat', data);
     });
@@ -73,16 +85,48 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        // Decrement totalUsers count when a user leaves the chat.
         totalUsers--;
+        socket.broadcast.emit('call-ended'); // for video call
+        var user = users.find((user) => user.id === ID);
         socket.broadcast.emit('leave', {
-            user: users[socket.id],
+            user,
             totalUsers
         });
-        delete users[socket.id];
+        users = users.filter((user) => user.id !== ID);
+    });
+
+    // Video-conference stuff
+    socket.on('get-myID', () => {
+        io.to(ID).emit('myID', ID);
+    });
+
+    socket.on('get-users-list', () => {
+        io.emit('users-list', users);
+    });
+    
+    socket.on('call-user', ({ userToCall, signalData, from }) => {
+        let user = users.find((user) => user.id == from);
+        io.to(userToCall).emit('call-user', {
+            name: user.name,
+            from,
+            signal: signalData
+        });
+    });
+
+    socket.on('notify-user', ({ id, user, myID }) => {
+        io.to(id).emit('notify-user', { user, myID });
+    });
+
+    socket.on('answer-call', ({ signal, to }) => {
+        io.to(to).emit('call-accepted', signal);
+    });
+
+    socket.on('call-rejected', (userID) => {
+        let user = users.find((user) => user.id === ID)
+        io.to(userID).emit('call-rejected', user.name)
     });
 });
 
 server.listen(PORT, () => {
-    console.log(`listenning at port ${PORT}`);
+    console.log(`Listening at port ${PORT}`);
 });

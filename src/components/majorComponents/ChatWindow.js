@@ -5,12 +5,17 @@ import chatTone from '../../../public/chat_tone.mp3'
 import { setWallpaper } from '../../client/helperFunctions'
 import DropDown from '../../client/dropdown/DropDown'
 import ToolBar from '../main/Toolbar'
+import Notifier from '../main/Notifier'
 
 const ChatWindow = ({ theme, setTheme }) => {
 
     const [ data, setData ] = useState([])
+    const [ callingUserID, setCallingUserID ] = useState(null)
+    const [ stopTimeOutID, setStopTimeOutID ] = useState(null)
     const [ user, setUser ] = useState('')
+    const [ callingUser, setCallingUser ] = useState('')
     const [ options, setOptions ] = useState(false)
+    const [ displayNotifier, setDisplayNotifier ] = useState(false)
     const [ CSS, setCSS ] = useState({
         backgroundColor: '#c2c2c2', 
         padding: '8px 20px'
@@ -32,6 +37,16 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setData(data => [ ...data, newData ])
             })
 
+            socket.on('notify-user', ({ user, myID }) => {
+                setDisplayNotifier(true)
+                setCallingUserID(myID)
+                setCallingUser(user)
+                setTimeout(() => setDisplayNotifier(false), 15000)
+                setStopTimeOutID(setTimeout(() => { 
+                    socket.emit('call-rejected', myID)
+                }, 15000))
+            })
+
             socket.on('chat', (newData) => {
                 setCSS({
                     ...CSS, 
@@ -40,7 +55,7 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setUser('')
                 setData(data => [ ...data, newData ])
 
-                if(audioRef.current){
+                if(audioRef.current) {
                     audioRef.current.muted = false
                     audioRef.current?.play()
                 }
@@ -67,13 +82,14 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     return (
         <>
-            <div style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }} id="outer-chat-box">
+            { displayNotifier && <Notifier person={callingUser} personID={callingUserID} stopTimeOutID={stopTimeOutID} setDisplayNotifier={setDisplayNotifier} theme={theme} /> }
+            <div id="outer-chat-box" style={{ backgroundColor: '#f2f2f2', marginTop: '0.4rem' }}>
                 <div id="chat-window" className={theme === 'dark' ? 'dark-window' : ''}>
                     <div id="display">
                         <Message data={data} theme={theme} />
                         <div ref={bottomScrollRef}></div>
                     </div>
-                    <div id="status-bar" className="teal-text text-darken-2" style={CSS} >
+                    <div id="status-bar" className={`${theme === 'dark' ? 'blue-text dark-typing-bar' : 'teal-text'} text-darken-2`} style={CSS} >
                         <em>{user} is typing ...</em>
                     </div>
                     <audio src={chatTone} ref={audioRef} muted></audio>

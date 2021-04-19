@@ -6,7 +6,7 @@ export const customAlert = (message, theme = 'light') => {
         html: message,
         inDuration: 800,
         outDuration: 800,
-        displayLength: 2000,
+        displayLength: 5000,
         classes: `rounded ${styleClasses}`
     })
 }

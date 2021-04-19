@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TakeInput = ({ iconName, labelText, iconColor, options, classes = 'validate' }) => {
+const TakeInput = ({ iconName, labelText, iconColor, options, validate = true }) => {
     return (
         <div className="input-field">
             <i className={`material-icons prefix ${iconColor || 'blue'}-text 
@@ -13,17 +13,14 @@ const TakeInput = ({ iconName, labelText, iconColor, options, classes = 'validat
                 ref = { options?.ref || null }
                 required = { options?.required || true }
                 disabled = { options?.disabled || false }
-                className = { classes }
                 autoComplete="off" 
             />
             <label htmlFor={options?.id || ''}>{labelText}</label>
-            { classes === 'validate' ? 
+            { validate && (
                 <span 
                     className="helper-text" 
                     data-error={`Incorrect ${options?.type}`}>
-                </span> 
-                : null 
-            }
+                </span> ) }
         </div>
     )
 }

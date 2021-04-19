@@ -28,6 +28,29 @@ body,nav {
     margin-top: 0.7rem;
 }
 
+#notifier {
+    max-width: 30rem;
+    position: absolute;
+    left: 3rem;
+    top: 6rem;
+    z-index: 1000;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.light-shadow {
+    box-shadow: 2px 2px 8px 1px rgba(0,0,1,0.3);
+}
+
+#notifier-title {
+    font-size: 1.4rem;
+}
+
+.light-notifier {
+    color: #333;
+    background-color: #eee !important;
+}
+
 #display div {
     font-size: 20px;
     margin: 8px 20px;

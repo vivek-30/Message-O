@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { socket } from '../../client/Chat'
 import { customAlert } from '../../client/helperFunctions'
 
-var user = ''
+export var user = ''
 
 export var displayEmoji = null
 export var setName = (name) => {
