@@ -65,7 +65,7 @@ const VideoCall = () => {
 
 		return () => {
 			socket.emit('stop-notifying')
-			stream?.getTracks()?.forEach(function(track) {
+			stream?.getTracks().forEach(function(track) {
 				track.stop()
 			})
 			isMounted = false
@@ -97,7 +97,8 @@ const VideoCall = () => {
 		})
 
 		peer.on('stream', (stream) => {
-			userVideoRef.current.srcObject = stream
+			userVideoRef.current ? userVideoRef.current.srcObject = stream 
+			: console.log('Can not set stream on empty element')
 		})
 
 		socket.on('call-accepted', (signal) => {
@@ -126,7 +127,8 @@ const VideoCall = () => {
 		})
 
 		peer.on('stream', (stream) => {
-			userVideoRef.current.srcObject = stream
+			userVideoRef.current ? userVideoRef.current.srcObject = stream 
+			: console.log('Can not set stream on empty element')
 		})
 
 		callerSignal ? peer.signal(callerSignal) : console.log('No callerSignal present.')
@@ -134,7 +136,6 @@ const VideoCall = () => {
 	}
 
 	const endCall = () => {
-		// setCallEnded(true)
 		stream?.getTracks().forEach(function(track) {
 			track.stop()
 		})

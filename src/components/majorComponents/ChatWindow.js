@@ -11,6 +11,7 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     const [ data, setData ] = useState([])
     const [ callingUserID, setCallingUserID ] = useState(null)
+    const [ stopTimeOutID, setStopTimeOutID ] = useState(null)
     const [ user, setUser ] = useState('')
     const [ callingUser, setCallingUser ] = useState('')
     const [ options, setOptions ] = useState(false)
@@ -22,8 +23,6 @@ const ChatWindow = ({ theme, setTheme }) => {
 
     const bottomScrollRef = useRef(null)
     const audioRef = useRef(null)
-
-    var stopTimeOutID = null
 
     useEffect(() => {
 
@@ -43,9 +42,9 @@ const ChatWindow = ({ theme, setTheme }) => {
                 setCallingUserID(myID)
                 setCallingUser(user)
                 setTimeout(() => setDisplayNotifier(false), 15000)
-                stopTimeOutID = setTimeout(() => { 
+                setStopTimeOutID(setTimeout(() => { 
                     socket.emit('call-rejected', myID)
-                }, 15000)
+                }, 15000))
             })
 
             socket.on('chat', (newData) => {
