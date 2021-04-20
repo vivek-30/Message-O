@@ -15,7 +15,7 @@ var totalUsers = 0;
 // Handle CORS Behaviour.
 app.use(cors(
     {
-        origin: '*',
+        origin: 'https://message-o.netlify.app',
         optionsSuccessStatus: 200,
         credentials: true
     }
@@ -43,7 +43,7 @@ app.use(router);
 
 const io = socket(server, {
     cors: {
-      origin: "https://message-o.herokuapp.com/",
+      origin: "https://message-o.netlify.app",
       methods: [ "GET", "POST" ],
       credentials: true
     }
