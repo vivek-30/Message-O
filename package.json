@@ -60,9 +60,5 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "proxy": {
-    "/*": {
-      "target": "http://localhost:4000"
-    }
-  }
+  "proxy": "https://message-o.herokuapp.com/"
 }

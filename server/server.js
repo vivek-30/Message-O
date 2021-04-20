@@ -15,7 +15,7 @@ var totalUsers = 0;
 // Handle CORS Behaviour.
 app.use(cors(
     {
-        origin: 'http://localhost:3000',
+        origin: '*',
         optionsSuccessStatus: 200,
         credentials: true
     }
@@ -43,7 +43,8 @@ app.use(router);
 
 const io = socket(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://message-o.herokuapp.com/",
+      methods: [ "GET", "POST" ],
       credentials: true
     }
 });

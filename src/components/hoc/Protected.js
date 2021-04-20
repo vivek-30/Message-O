@@ -14,7 +14,7 @@ const Protected = (Component) => {
 
             let isMounted = true
 
-            fetch('http://127.0.0.1:4000/chat', {
+            fetch('https://message-o.herokuapp.com/chat', {
                 method: 'GET',
                 credentials: "include"
             })

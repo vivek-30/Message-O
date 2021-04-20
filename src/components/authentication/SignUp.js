@@ -37,7 +37,7 @@ const SignUp = () => {
             contact
         }
 
-        makePostRequest('http://127.0.0.1:4000/sign-up', Data, setResponseData)
+        makePostRequest('https://message-o.herokuapp.com/sign-up', Data, setResponseData)
 
         setUser('')
         setPassword('')
