@@ -94,21 +94,14 @@ router.post('/sign-in', async (req, res) => {
 });
 
 router.get('/logout', (req, res, next) => {
-
-    const token = req.cookies.jwt;
-
-    if(token) {
-        res.cookie('jwt', '', {
-            httpOnly: true,
-            maxAge: 1,
-            sameSite: 'none',
-            secure: true
-        });
-        res.status(200).json({ success: 'logged out successfully' });
-    }
-    else {
-        res.status(404).json({ error: 'No User Found' });
-    }
+    
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        maxAge: 1,
+        sameSite: 'none',
+        secure: true
+    });
+    res.status(200).json({ success: 'logged out successfully' });
     
     next();
 });
