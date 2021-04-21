@@ -144,22 +144,24 @@ const VideoCall = () => {
 	}
 
 	return (
-		<div className="section">
-			<div>
+		<div className="section row" id="video-container">
+			<div className="col s12 m12 l12 center">
 				{ receivingCall && !callAccepted ? (
-					<span className="flow-text black-text">{person} is calling...</span>
+					<em className="flow-text pink-text text-darken-5">{person} is calling...</em>
 				) : null }
 			</div>
-			<div id="video-container">
-				<span className="video">
-					{ stream && <video ref={myVideoRef} playsInline autoPlay muted /> }
-				</span>
-				<span className="video">
-					{ callAccepted && !callEnded ? ( <video ref={userVideoRef} playsInline autoPlay muted /> )
-					: null }
-				</span>
+			<div className="col s12 m12 l12">
+				<div className="row">
+					<span className="video col s12 m5 l5">
+						{ stream && <video ref={myVideoRef} playsInline autoPlay muted /> }
+					</span>
+					<span className="video col s12 m5 l5">
+						{ callAccepted && !callEnded ? ( <video ref={userVideoRef} playsInline autoPlay muted /> )
+						: null }
+					</span>
+				</div>
 			</div>
-			<div id="call-handlers">
+			<div id="call-handlers" className="col s12 m12 l12 center">
 				{ isHomeButton ? (
 					<button className="btn-large grey lighten-4 orange-text center" onClick={endCall}>
 						<i className="material-icons left">home</i>
