@@ -64,7 +64,7 @@ const SignUp = () => {
                 
                 <TakeInput 
                     iconName="mail"  
-                    labelText="Your Email Address"
+                    labelText="Your Email"
                     options={{
                         id: "email", 
                         type: 'email',
@@ -86,7 +86,7 @@ const SignUp = () => {
 
                 <TakeInput 
                     iconName="phone"  
-                    labelText="Your Contact Number"
+                    labelText="Contact Number"
                     options={{
                         id: "telephone", 
                         type: 'tel',
