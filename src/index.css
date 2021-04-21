@@ -39,7 +39,7 @@ body,nav {
     left: 3rem;
     top: 6rem;
     z-index: 1000;
-    border-radius: 1rem;
+    border-radius: 0.7rem;
     padding: 1rem;
 }
 
@@ -91,7 +91,10 @@ body,nav {
 
 #status-bar {
     display: none;
-    /* z-index: 5; */
+    z-index: 10;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 #status-bar em {
@@ -127,7 +130,7 @@ body,nav {
 }
 
 #outer-chat-box {
-    min-height: 60vh;
+    min-height: 68vh;
     position: relative
 }
 

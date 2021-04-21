@@ -89,10 +89,10 @@ const ChatWindow = ({ theme, setTheme }) => {
                         <Message data={data} theme={theme} />
                         <div ref={bottomScrollRef}></div>
                     </div>
-                    <div id="status-bar" className={`${theme === 'dark' ? 'blue-text dark-typing-bar' : 'teal-text'} text-darken-2`} style={CSS} >
-                        <em>{user} is typing ...</em>
-                    </div>
                     <audio src={chatTone} ref={audioRef} muted></audio>
+                </div>
+                <div id="status-bar" className={`${theme === 'dark' ? 'blue-text dark-typing-bar' : 'teal-text'} text-darken-2`} style={CSS} >
+                        <em>{user} is typing ...</em>
                 </div>
                 { options && <DropDown theme={theme} setOptions={setOptions} setData={setData} setTheme={setTheme} /> }
             </div>
