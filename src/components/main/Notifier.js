@@ -7,7 +7,7 @@ const Notifier = ({ person, personID, stopTimeOutID, setDisplayNotifier, theme }
     const history = useHistory()
 
     return (
-        <div id="notifier" className={`${theme === 'dark' ? 'dark-notifier dark-border' : 'light-notifier light-shadow'}`}>
+        <div id="notifier" className={`${theme === 'dark' ? 'dark-notifier' : 'light-notifier light-shadow'}`}>
             <div id="notifier-title" className={`center ${theme === 'dark' ? 'grey-text' : 'black-text'}`}>
                 {person} wants you to join video conference.
             </div>
