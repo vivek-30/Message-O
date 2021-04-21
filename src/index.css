@@ -151,3 +151,15 @@ input[type=tel]:not(.browser-default):focus:not([readonly]) {
 .input-field input[type=tel]:focus + label {
     color: #1e7bb9 !important;
 }
+
+/* media query */
+@media screen and (max-width: 1000px) {
+    .brand-logo {
+        text-align: center;
+        margin: 0px 0.4rem;
+    }
+
+    .authenticate {
+        padding: 3rem 1.5rem;
+    }
+}
