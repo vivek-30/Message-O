@@ -33,7 +33,7 @@ const SignIn = () => {
             password
         }
 
-        makePostRequest('https://message-o.herokuapp.com/sign-in', Data, setResponseData)
+        makePostRequest('https://message-o.onrender.com/sign-in', Data, setResponseData)
 
         setEmail('')
         setPassword('')

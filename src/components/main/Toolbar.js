@@ -15,7 +15,7 @@ const Toolbar = ({ setOptions, theme }) => {
     const fileRef = useRef(null)
 
     const Logout = () => {
-        fetch('http://127.0.0.1:4000/logout', {
+        fetch('https://message-o.onrender.com/logout', {
             method: 'GET',
             credentials: 'include'
         })

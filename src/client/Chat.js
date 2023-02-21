@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const URL = 'https://message-o.herokuapp.com'
+const URL = 'https://message-o.onrender.com'
  
 export const socket = io(URL)
 

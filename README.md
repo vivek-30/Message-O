@@ -65,5 +65,5 @@ For App - `3000`
 For Server - `4000` 
 
 ### Start Now -
-Deployed On Netlify And Heroku - 
+Deployed On Netlify And Render - 
 [Message-O](https://message-o.netlify.app)

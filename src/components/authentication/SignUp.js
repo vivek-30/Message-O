@@ -37,7 +37,7 @@ const SignUp = () => {
             contact
         }
 
-        makePostRequest('https://message-o.herokuapp.com/sign-up', Data, setResponseData)
+        makePostRequest('https://message-o.onrender.com/sign-up', Data, setResponseData)
 
         setUser('')
         setPassword('')
